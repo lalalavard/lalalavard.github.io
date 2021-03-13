@@ -186,7 +186,7 @@
 <p>这种变量本身类型不固定的语言称之为<em>动态语言</em>，与之对应的是<em>静态语言</em>。静态语言在定义变量时必须指定变量类型，如果赋值的时候类型不匹配，就会报错。例如Java是静态语言，赋值语句如下（// 表示注释）：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int a &#x3D; 123; &#x2F;&#x2F; a是整数类型变量</span><br><span class="line">a &#x3D; &quot;ABC&quot;; &#x2F;&#x2F; 错误：不能把字符串赋给整型变量</span><br></pre></td></tr></table></figure>
 
-<h1 id=""><a href="#" class="headerlink" title=""></a></h1><p>a = ‘ABC’<br>b = a<br>a = ‘XYZ’<br>print(b)</p>
+<h1 id><a href="#" class="headerlink" title></a></h1><p>a = ‘ABC’<br>b = a<br>a = ‘XYZ’<br>print(b)</p>
 <p>最后一行打印出变量<code>b</code>的内容到底是<code>&#39;ABC&#39;</code>呢还是<code>&#39;XYZ&#39;</code>？如果从数学意义上理解，就会错误地得出<code>b</code>和<code>a</code>相同，也应该是<code>&#39;XYZ&#39;</code>，但实际上<code>b</code>的值是<code>&#39;ABC&#39;</code>，让我们一行一行地执行代码，就可以看到到底发生了什么事：</p>
 <p>执行<code>a = &#39;ABC&#39;</code>，解释器创建了字符串<code>&#39;ABC&#39;</code>和变量<code>a</code>，并把<code>a</code>指向<code>&#39;ABC&#39;</code>：</p>
 <p><img src="https://www.liaoxuefeng.com/files/attachments/923791878255456/0" alt="py-var-code-1"></p>

@@ -152,6 +152,138 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-基于华为云服务器搭建方舟私服教程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="文章目录"><a href="#文章目录" class="headerlink" title="文章目录"></a>文章目录</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.freesion.com/article/2228373606/#_8">一、环境部署</a></p>
+</li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://www.freesion.com/article/2228373606/#11_net_framework_21">1.1 安装.net framework</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.freesion.com/article/2228373606/#12_DirectX_11_35">1.2 DirectX 11安装</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.freesion.com/article/2228373606/#13__50">1.3 网卡配置</a></li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.freesion.com/article/2228373606/#ARK_Server_Manager_56">二、安装及配置ARK Server Manager</a></p>
+</li>
+<li><ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.freesion.com/article/2228373606/#21_ARK_Server_Manager_57">2.1 ARK Server Manager安装</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.freesion.com/article/2228373606/#22_SteamCMD_70">2.2 SteamCMD安装</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.freesion.com/article/2228373606/#23_ARK_Server_Manager_78">2.3 ARK Server Manager</a></p>
+</li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://www.freesion.com/article/2228373606/#231_ARK_Server_Manager_79">2.3.1 切换ARK Server Manager语言为中文</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.freesion.com/article/2228373606/#232_ARK_Server_Manager_84">2.3.2 创建ARK Server Manager配置文件</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.freesion.com/article/2228373606/#233_87">2.3.3方舟游戏版本安装</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.freesion.com/article/2228373606/#234_ARK_Server_Manager_94">2.3.4 ARK Server Manager修改配置文件</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.freesion.com/article/2228373606/#235__98">2.3.5 开启服务</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.freesion.com/article/2228373606/#_104">三、放通端口</a></p>
+</li>
+<li><p>[四、连接服务器]</p>
+</li>
+</ul>
+<h1 id="一、环境部署"><a href="#一、环境部署" class="headerlink" title="一、环境部署"></a>一、环境部署</h1><p><strong>配置要求：</strong><br>操作系统：windows操作系统（本次使用windows server 2016）Windows熟悉<br>内存：不低于4G，推荐8G（实测低于4G无法运行，实际上光启动孤岛一个地图就要4.5G内存）<br>硬盘：至少15G空间 （实测安装完成够占用10G左右，实际上要30G~）<br>软件： .net framework 4.5以上(越新越好)<br>DirectX 11</p>
+<p><strong>安装目录中不建议出现中文或空格，防止后续程序无法启动。</strong></p>
+<p>安装过程中采用windows 自带远程桌面连接服务器，并勾选 本地资源&gt;&gt;&gt;剪贴板 ，方便本地与服务器拷贝文件。</p>
+<h2 id="1-1-安装-NET-FRAMEWORK"><a href="#1-1-安装-NET-FRAMEWORK" class="headerlink" title="1.1 安装.NET FRAMEWORK"></a>1.1 安装.NET FRAMEWORK</h2><p>本次安装使用到的是.net framework 4.8<br>下载链接：<a target="_blank" rel="noopener" href="https://dotnet.microsoft.com/download/dotnet-framework/net48">https://dotnet.microsoft.com/download/dotnet-framework/net48</a></p>
+<p>![](C:\Users\10950\Pictures\Camera Roll\NETFramework官网.PNG)</p>
+<p>该版本为最新更新版本（最近一次在2019年更新，2021年3月12日）</p>
+<p>![](C:\Users\10950\Pictures\Camera Roll\NET安装截图1.PNG)</p>
+<p>安装完成后若出现重启提示则点击稍后重启。</p>
+<p>![](C:\Users\10950\Pictures\Camera Roll\NET安装截图2.PNG)</p>
+<h2 id="1-2安装DX11"><a href="#1-2安装DX11" class="headerlink" title="*1.2安装DX11"></a>*<em>1.2安装DX11</em></h2><p>下载链接：<a target="_blank" rel="noopener" href="https://www.jb51.net/softs/668698.html">https://www.jb51.net/softs/668698.html</a></p>
+<p>有能力的到官方安装DX11(网速惊人)，一般到正规点的软件下载网站下载DX11修复工具就好。</p>
+<p>![](C:\Users\10950\Pictures\Camera Roll\DX11.PNG)</p>
+<p>![](C:\Users\10950\Pictures\Camera Roll\DX11安装.PNG)</p>
+<p>如果下载的是rar压缩包，记得解压后重新压缩成zip格式（服务器解压不了rar格式的压缩文件）</p>
+<p>运行DX11修复工具。</p>
+<h2 id="1-3-网卡配置"><a href="#1-3-网卡配置" class="headerlink" title="1.3 网卡配置"></a>1.3 网卡配置</h2><p>公有云大多数自动获取IP地址，如果是公有云可以不管，如果是家庭宽带需要将此处调整为固定IP地址。考虑到服务器搭建完成后需要连接steam服务器，无特殊原因推荐将域名改为 8.8.8.8 。</p>
+<h4 id="1-3-1右击右下角网络图标，打开网络设置"><a href="#1-3-1右击右下角网络图标，打开网络设置" class="headerlink" title="1.3.1右击右下角网络图标，打开网络设置"></a>1.3.1右击右下角网络图标，打开网络设置</h4><p>![](C:\Users\10950\Pictures\Camera Roll\DNS地址配置1.PNG)</p>
+<h4 id="1-3-2更改适配器选项，找到该服务器网卡"><a href="#1-3-2更改适配器选项，找到该服务器网卡" class="headerlink" title="1.3.2更改适配器选项，找到该服务器网卡"></a>1.3.2更改适配器选项，找到该服务器网卡</h4><p>![](C:\Users\10950\Pictures\Camera Roll\DNS地址配置2.PNG)</p>
+<h4 id="1-3-1属性，找到IPV4，双击修改DNS服务器地址为8-8-8-8"><a href="#1-3-1属性，找到IPV4，双击修改DNS服务器地址为8-8-8-8" class="headerlink" title="1.3.1属性，找到IPV4，双击修改DNS服务器地址为8.8.8.8"></a>1.3.1属性，找到IPV4，双击修改DNS服务器地址为8.8.8.8</h4><p>![](C:\Users\10950\Pictures\Camera Roll\DNS地址配置3.PNG)</p>
+<h1 id="二、安装及配置ARK-SERVER-MANAGER"><a href="#二、安装及配置ARK-SERVER-MANAGER" class="headerlink" title="二、安装及配置ARK SERVER MANAGER"></a>二、安装及配置ARK SERVER MANAGER</h1><h2 id="2-1-ARK-SERVER-MANAGER安装"><a href="#2-1-ARK-SERVER-MANAGER安装" class="headerlink" title="2.1 ARK SERVER MANAGER安装"></a>2.1 ARK SERVER MANAGER安装</h2><p>ARK Server Manager是方舟开服用的第三方管理软件，能够使我们更便捷的开服。<br>下载链接：<a target="_blank" rel="noopener" href="https://arkservermanager.freeforums.net/thread/5193/downloads?page=1&amp;scrollTo=29985">https://arkservermanager.freeforums.net/thread/5193/downloads?page=1&amp;scrollTo=29985</a> 最新的版本会一直推送在首页</p>
+<p>![](C:\Users\10950\Pictures\Camera Roll\ASM0.PNG)</p>
+<p>下载完成后拷贝到服务器安装。</p>
+<p>在C盘下创建 C:/ARK 文件夹来安装ARK Server Manager，同时在ARK文件夹下创建SteamCMD文件夹</p>
+<p>![](C:\Users\10950\Pictures\Camera Roll\ASM2.PNG)</p>
+<h2 id="2-2-STEAMCMD安装"><a href="#2-2-STEAMCMD安装" class="headerlink" title="2.2 STEAMCMD安装"></a>2.2 STEAMCMD安装</h2><p>安装完成后，通过桌面图标启动ARK Server Manager工具，会出现如下界面，提示需要安装SteamCMD，本次安装路径为C:/ARK/SteamCMD 文件夹下。安装速度取决于网速，5M带宽要安装差不多二十分钟。。(华为云的小水管)</p>
+<p>![](C:\Users\10950\Pictures\Camera Roll\SteamCMD.PNG)</p>
+<p>![](C:\Users\10950\Pictures\Camera Roll\SteamCMD1.png)</p>
+<h2 id="2-3-ARK-SERVER-MANAGER"><a href="#2-3-ARK-SERVER-MANAGER" class="headerlink" title="2.3 ARK SERVER MANAGER"></a>2.3 ARK SERVER MANAGER</h2><h3 id="2-3-1-切换ARK-SERVER-MANAGER语言为中文"><a href="#2-3-1-切换ARK-SERVER-MANAGER语言为中文" class="headerlink" title="2.3.1 切换ARK SERVER MANAGER语言为中文"></a>2.3.1 切换ARK SERVER MANAGER语言为中文</h3><p>安装完成后启动ARK Server Manager，第一次启动默认语言为英文，我们需要切换为中文。</p>
+<p>![](C:\Users\10950\Pictures\Camera Roll\SteamCMD2.PNG)</p>
+<h3 id="2-3-2-创建ARK-SERVER-MANAGER配置文件"><a href="#2-3-2-创建ARK-SERVER-MANAGER配置文件" class="headerlink" title="2.3.2 创建ARK SERVER MANAGER配置文件"></a>2.3.2 创建ARK SERVER MANAGER配置文件</h3><p>点击+号即可完成创建配置文件</p>
+<p>![](C:\Users\10950\Pictures\Camera Roll\AMS启动1.png)</p>
+<h3 id="2-3-3方舟游戏版本安装"><a href="#2-3-3方舟游戏版本安装" class="headerlink" title="2.3.3方舟游戏版本安装"></a>2.3.3方舟游戏版本安装</h3><p>依图中点击安装按钮即可开始安装，安装过程中会弹出20分钟左右时间，千万不要中断或进行其他操作，以免服务器卡死。点击安装后指到窗口会转圈圈，别以为是卡死什么的，可以打开此电脑C盘监控容量，如果容量一直在减少说明在安装，只需要等一(亿)会就安装好了。安装成功的话最后一句是Finished upgrade process,</p>
+<p><strong>如果出现mod update failed什么的，关掉输出steamCMD进度</strong></p>
+<p>![](C:\Users\10950\Pictures\Camera Roll\AMS启动2.png)</p>
+<p>![](C:\Users\10950\Pictures\Camera Roll\AMS启动3.png)</p>
+<p>![](C:\Users\10950\Pictures\Camera Roll\AMS启动4.png)</p>
+<h3 id="2-3-4-ARK-SERVER-MANAGER修改配置文件"><a href="#2-3-4-ARK-SERVER-MANAGER修改配置文件" class="headerlink" title="2.3.4 ARK SERVER MANAGER修改配置文件"></a>2.3.4 ARK SERVER MANAGER修改配置文件</h3><p>需要选择地图才能启动服务，并修改服务器名称，服务器名称为steam服务器器列表中显示名称</p>
+<p>在配置文件中设置服务器参数(显示地图位置、启用第三人称、倍率之类·····)</p>
+<h3 id="2-3-5-开启服务"><a href="#2-3-5-开启服务" class="headerlink" title="2.3.5 开启服务"></a>2.3.5 开启服务</h3><p>点击右上角开始，即可开启服务，启动时间随服务器配置而定。如超过30分钟未启动，建议停止后再行启动。</p>
+<p>开启服务后会显示如下图所示。本地状态为运行，网络状态为等待发布。</p>
+<h1 id="三、放通端口"><a href="#三、放通端口" class="headerlink" title="三、放通端口"></a>三、放通端口</h1><p>因公有云安全组限制，steam服务器无法连接至本地服务器，需要在安全组中放通相关端口，参照基础管理中端口，需要注意协议为<strong>UDP</strong> 。<br>如使用家庭宽带，需要路由器端口映射。</p>
+<p>默认端口为：<br>UDP 7777<br>UDP 27015</p>
+<p>放通后ARK Server Manager界面显示为网络状态为 <strong>可用</strong></p>
+<p>如网络状态长时间显示为不可用，建议在排查 <strong>安全组</strong> 策略后，对ARK Server Manager 进行停止后，再行启动。</p>
+<p>如果是开多个地图组成多通，每个图修改端口，集群</p>
+<h1 id="四、连接服务器"><a href="#四、连接服务器" class="headerlink" title="四、连接服务器"></a>四、连接服务器</h1><p>登录方舟游戏 选择<strong>加入线上方舟</strong></p>
+<p>选择<strong>非官方服务器</strong> 搜索所设服务器名称，建议设置一段数字作为搜索依据。</p>
+<p>如无法搜索到，可通过以下命令尝试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start steam:&#x2F;&#x2F;connect&#x2F;121.36.92.19:27015 </span><br></pre></td></tr></table></figure>
+
+<p>意思为启动steam连接到IP地址为121.36.92，端口为27015的服务器</p>
+<p>IP地址为服务器公网IP地址，端口可写可不写(自己设置，默认为27015)</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/13/%E5%9F%BA%E4%BA%8E%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E6%96%B9%E8%88%9F%E7%A7%81%E6%9C%8D%E6%95%99%E7%A8%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-my-first-blog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

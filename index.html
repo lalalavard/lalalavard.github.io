@@ -152,111 +152,36 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-找出被占用端口的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Docker面试题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="项目测试的时候需要用到某个端口进行预览，但经常遇到端口被占用的情况，而如何找出被占用端口的进程呢，下面就教一种方法。"><a href="#项目测试的时候需要用到某个端口进行预览，但经常遇到端口被占用的情况，而如何找出被占用端口的进程呢，下面就教一种方法。" class="headerlink" title="项目测试的时候需要用到某个端口进行预览，但经常遇到端口被占用的情况，而如何找出被占用端口的进程呢，下面就教一种方法。"></a>项目测试的时候需要用到某个端口进行预览，但经常遇到端口被占用的情况，而如何找出被占用端口的进程呢，下面就教一种方法。</h2><h1 id="找出占用端口的进程"><a href="#找出占用端口的进程" class="headerlink" title="找出占用端口的进程"></a>找出占用端口的进程</h1><h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><p>windows 可以通过自带的 <code>资源监视器</code> 来查看。</p>
-<ul>
-<li><p>点击左下角启动按钮，输入 <code>resmon</code></p>
-</li>
-<li><p>点击 <code>网络</code> 标签，点击 <code>侦听端口</code> 栏</p>
-<p>即可查看端口占用情况</p>
-</li>
-</ul>
-<p>也可以使用命令 <code>netstat -ano|find &quot;:端口号&quot; |find &quot;LISTEN&quot;</code></p>
-<p>比如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c:\&gt;netstat -ano|find &quot;:80&quot; |find &quot;LISTEN&quot;</span><br><span class="line">  TCP    127.0.0.1:80           0.0.0.0:0              LISTENING       616</span><br></pre></td></tr></table></figure>
-
-<p>最后的 616 就是占用 80 端口号 的进程ID</p>
-<p>也可以使用 power shell 命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-Process -Id (Get-NetTCPConnection -LocalPort 端口号).OwningProcess</span><br></pre></td></tr></table></figure>
-
-<p>比如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS C:\&gt; Get-Process -Id (Get-NetTCPConnection -LocalPort 80).OwningProcess</span><br><span class="line"></span><br><span class="line">Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName</span><br><span class="line">-------  ------    -----      -----     ------     --  -- -----------</span><br><span class="line">    225      22    18528      26652       0.83    616   3 python</span><br></pre></td></tr></table></figure>
-
-<p>Id 那列对应的就是占用端口的 进程ID</p>
-<p>Windows上 根据 <code>进程ID</code> 杀死进程，可以使用如下命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskkill &#x2F;F &#x2F;PID 616</span><br></pre></td></tr></table></figure>
-
-
-
-<p>Windows上 根据 <code>进程名</code> 杀死进程，可以使用如下命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskkill &#x2F;F &#x2F;IM hugo.exe</span><br></pre></td></tr></table></figure>
-
-<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>Linux检查 大家应该比较熟悉 使用 如下命令即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># netstat -anp|grep &quot;:80 &quot; |grep LISTEN</span><br><span class="line">tcp     0      0 0.0.0.0:80        0.0.0.0:*      LISTEN      17785&#x2F;nginx: worker</span><br></pre></td></tr></table></figure>
-
-<p>上例中， 17785就是占用端口的进程ID</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/09/%E6%89%BE%E5%87%BA%E8%A2%AB%E5%8D%A0%E7%94%A8%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%BA%94%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
+      <header class="article-header">
         
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-前端复习资料" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/04/11/Docker%E9%9D%A2%E8%AF%95%E9%A2%98/">Docker面试题</a>
+    </h1>
+  
+
+        
+        <a href="/2021/04/11/Docker%E9%9D%A2%E8%AF%95%E9%A2%98/" class="archive-article-date">
+  	<time datetime="2021-04-11T06:42:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-11</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="前端复习资料"><a href="#前端复习资料" class="headerlink" title="前端复习资料"></a>前端复习资料</h1><p>1.从浏览器地址栏输入url到显示页面的步骤</p>
-<p>浏览器根据请求的URL交给DNS域名解析，找到真实IP，向服务器发起http请求；<br>服务器交给后台处理完成后返回数据，浏览器接收文件（HTML、JS、CSS、图象等）；<br>浏览器对加载到的资源（HTML、JS、CSS等）进行语法解析，建立相应的内部数据结构（如HTML的DOM）；<br>载入解析到的资源文件，渲染页面，完成。?</p>
-<p>2.margin和padding分别适合什么场景使用？</p>
-<p>margin是用来隔开元素与元素的间距；<br>需要在border外侧添加空白<br>空白处不需要背景色<br>上下相连的两个盒子之间的空白，需要相互抵消时。</p>
-<p>padding是用来隔开元素与内容的间隔。<br>需要在border内侧添加空白<br>空白处需要背景颜色<br>上下相连的两个盒子的空白，希望为两者之和。</p>
-<p>3.请描述一下cookies，sessionStorage和 localStorage的区别？<br>cookie是网站为了标示用户身份而储存在用户本地终端上的数据；cookie数据始终在同源的http请求中携带（即使不需要），也会在浏览器和服务器间来回传递。<br>sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存；<br>存储大小：<br>cookie数据大小不能超过4k sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大。<br>有效时间：<br>localStorage存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；<br>sessionStorage数据在当前浏览器窗口关闭后自动删除；<br>cookie设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭</p>
-<p>4、position有哪些值？有什么作用？<br>static。默认值，不脱离文档流，top，right，bottom，left等属性不生效。<br>relative。不脱离文档流，依据自身位置进行偏离，当子元素设置absolute，将依据它进行偏离。<br>absolute。脱离文档流，依据top，right，bottom，left等属性在正常文档流中偏移位置。<br>fixed。通过浏览器窗口进行定位，出现滚动条的时候，不会随之滚动。</p>
-<p>5、简述div+css布局与表格布局相比的优点<br>1、TABLE表格布局。<br>优点：布局容易、快捷、兼容性好。<br>缺点：改动不便，需重新调整，工作量大。<br>2、DIV+CSS。<br>优点：布局灵活、改动方便。<br>缺点：需考虑平台的兼容性，对制作人员技能要求较高。</p>
-<p>6、水平居中的方法有哪些？<br>元素为行内元素，设置父元素text-align:center<br>如果元素宽度固定，可以设置左右margin为auto;<br>如果元素为绝对定位，设置父元素position为relative，元素设left:0;right:0;margin:auto;<br>使用flex-box布局，指定justify-content属性为center<br>display设置为tabel-ceil</p>
-<p>7、CSS优先级算法如何计算？<br>优先级就近原则，同权重情况下样式定义最近者为准<br>载入样式以最后载入的定位为准<br>优先级为: !important &gt; id &gt; class &gt; tag;</p>
-<p>8、HTML全局属性(global attribute)有哪些？<br>class:为元素设置类标识<br>data-*: 为元素增加自定义属性<br>draggable: 设置元素是否可拖拽<br>id: 元素id，文档内唯一<br>lang: 元素内容的的语言<br>style: 行内css样式<br>title: 鼠标在上方时提示信息</p>
-<p>9、垂直居中有哪些方法？<br>单行文本的话可以使用height和line-height设置同一高度。<br>position+margin：设置父元素:position: relative;，子元素height: 100px;position:absolute;top: 50%; margin: -50px 0 0 0;（定高）<br>position+transform：设置父元素position:relative,子元素：position: absolute;top: 50%;transform: translate(0, -50%);（不定高）<br>百搭flex布局(ie10+)，设置父元素display:flex;align-items: center;（不定高）</p>
-<p>10、盒子模型有哪些？它们的区别是什么？<br>盒模型分为两类: IE盒模型和标准盒模型。 两者的区别在于:<br>IE盒模型的width/height = content + border + padding<br>标准盒模型的width/height = content</p>
-<p>11、单页面应用和多页面应用区别及优缺点<br>答：单页面应用（SPA），通俗一点说就是指只有一个主页面的应用，浏览器一开始要加载所有必须的 html, js, css。所有的页面内容都包含在这个所谓的主页面中。但在写的时候，还是会分开写（页面片段），然后在交互的时候由路由程序动态载入，单页面的页面跳转，仅刷新局部资源。多应用于pc端。<br>多页面（MPA），就是指一个应用中有多个页面，页面跳转时是整页刷新<br>单页面的优点：<br>用户体验好，快，内容的改变不需要重新加载整个页面，基于这一点spa对服务器压力较小；前后端分离；页面效果会比较炫酷（比如切换页面内容时的专场动画）。<br>单页面缺点：<br>不利于seo；导航不可用，如果一定要导航需要自行实现前进、后退。（由于是单页面不能用浏览器的前进后退功能，所以需要自己建立堆栈管理）；初次加载时耗时多；页面复杂度提高很多。</p>
-<p>12、v-if 和 v-show 有什么区别？<br>v-show 仅仅控制元素的显示方式，将 display 属性在 block 和 none 来回切换；而v-if会控制这个 DOM 节点的存在与否。<br>当我们需要经常切换某个元素的显示/隐藏时，使用v-show会更加节省性能上的开销；当只需要一次显示或隐藏时，使用v-if更加合理。</p>
-<p>13、什么是js的冒泡？Vue中如何阻止冒泡事件？<br>js冒泡概念：当父元素内多级子元素绑定了同一个事件，js会依次从内往外或者从外往内执行每个元素的该事件，从而引发冒泡。<br>?js解决冒泡：event.stopPropagation()<br>vue解决冒泡： 事件.stop,例如：@click.stop=”” ,@mouseover.stop=””</p>
-<p>14、Vue组件间通信的技术有哪些？<br>1.父组件与子组件传值<br>父组件传给子组件：子组件通过props方法接受数据;<br>子组件传给父组件：$emit方法传递参数</p>
-<p>2.非父子组件间的数据传递，兄弟组件传值<br>eventBus，就是创建一个事件中心，相当于中转站，可以用它来传递事件和接收事件。也可使用vuex</p>
-<p>15、简述制作一个网页的工作流程<br>内容分析：分清展现在网络中内容的层次和逻辑关系<br>结构设计：写出合理的html结构代码<br>布局设计：使用html+css进行布局<br>样式设计：首先要使用reset.css<br>交互设计：鼠标特效<br>行为设计：js代码，ajax页面行为和从服务器获取数据<br>测试兼容性；优化性能。</p>
-<p>16．减少页面加载时间的方法有哪些？<br>1.减少HTTP请求；<br>2.合并压缩Js/css文件；<br>3.使用缓存manifest；<br>4.服务器端开启gzip；<br>5.使用CDN，用户可以就近获取所需要的资源，访问速度有保障，稳定性也有保障<br>6.外部JS和CSS放底下<br>7.尽可能少的操作DOM，某些需要重复操作的DOM可以放变量里</p>
-<p>减少http请求  合并压缩CSS JS文件  服务器端开启GZIP 使用CDN</p>
+        <h1 id="1-如何在生产中监控docker"><a href="#1-如何在生产中监控docker" class="headerlink" title="1.如何在生产中监控docker"></a>1.如何在生产中监控docker</h1><p>Docker提供docker stats和docker事件等工具来监控生产中的Docker。我们可以使用这些命令获取重要统计数据的报告。<br>Docker统计数据：当我们使用容器ID调用docker stats时，我们获得容器的CPU，内存使用情况等。它类似于Linux中的top命令。<br>Docker事件：Docker事件是一个命令，用于查看Docker守护程序中正在进行的活动流。一些常见的Docker事件是：attach，commit，die，detach，rename，destroy等。</p>
+<h1 id="2-什么是docker-compose"><a href="#2-什么是docker-compose" class="headerlink" title="2.什么是docker-compose"></a>2.什么是docker-compose</h1><p>说的直白一点，docker-compose就是一个编排同时管理多个容器的工具，与它配对使用的是一个docker-compose.yml文件，docker-compose命令必须在一个包含docker-compose.yml文件的目录中才能使用，且当下docker-compose命令只能管理当前目docker-compose.yml文件中所涉及的容器，安装在机器上的其他容器无法干扰。<br>docker-compose的大部分命令基本和docker的命令重合，他们唯一的区别是docker的命令能管理机器上所有的容器和镜像文件，而docker-compose只能管理当前docker-compose.yml文件所涉及的容器。</p>
+<h1 id="3-docker镜像联合文件系统"><a href="#3-docker镜像联合文件系统" class="headerlink" title="3.docker镜像联合文件系统"></a>3.docker镜像联合文件系统</h1><blockquote>
+<p>UnionFS（联合文件系统）：Union文件系统（UnionFS）是一种分层、轻量级并且高性能的文件系统，它支持对文件系统的修改作为一次提交来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系统下(unite several directories into a single virtual filesystem)。Union 文件系统是 Docker 镜像的基础。镜像可以通过分层来进行继承，基于基础镜像，可以制作各种具体的应用镜像。</p>
+</blockquote>
+<p>特性：一次同时加载多个文件系统，但从外面看起来，只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录。</p>
+<h1 id="4-什么是Docker-Hub"><a href="#4-什么是Docker-Hub" class="headerlink" title="4.什么是Docker Hub"></a>4.什么是Docker Hub</h1><p>DockerHub是一个由Docker公司运行和管理的基于云的存储库。它是一个在线存储库，Docker镜像可以由其他用户发布和使用。</p>
+<h1 id="5-Docker安全么"><a href="#5-Docker安全么" class="headerlink" title="5.Docker安全么"></a>5.Docker安全么</h1><p>Docker 利用了 Linux 内核中很多安全特性来保证不同容器之间的隔离，并且通过签名机制来对镜像进行验证。大量生产环境的部署证明，Docker 虽然隔离性无法与虚拟机相比，但仍然具有极高的安全性。</p>
+<h1 id="6-Docker容器可扩展到多远"><a href="#6-Docker容器可扩展到多远" class="headerlink" title="6.Docker容器可扩展到多远"></a>6.Docker容器可扩展到多远</h1><p>诸如Google和Twitter之类的大型Web部署以及诸如Heroku和dotCloud之类的平台提供商都基于容器技术运行，并行运行的容器数以十万甚至数百万计。</p>
+<h1 id="7-Docker容器退出时是否会丢失数据"><a href="#7-Docker容器退出时是否会丢失数据" class="headerlink" title="7.Docker容器退出时是否会丢失数据"></a>7.Docker容器退出时是否会丢失数据</h1><p>不，当Dcoker容器退出时，不会丢失数据。应用程序写入磁盘的所有数据都会保留在其容器中，直到您明确删除该容器为止。即使在容器停止后，该容器的文件系统仍然存在。</p>
 
       
 
@@ -265,11 +190,22 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/09/%E5%89%8D%E7%AB%AF%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/04/11/Docker%E9%9D%A2%E8%AF%95%E9%A2%98/">展开全文 >></a>
         </p>
       
 
@@ -301,6 +237,21 @@
   
     <article id="post-Docker概述" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/04/10/Docker%E6%A6%82%E8%BF%B0/">Docker学习笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2021/04/10/Docker%E6%A6%82%E8%BF%B0/" class="archive-article-date">
+  	<time datetime="2021-04-10T03:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-10</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -436,11 +387,403 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/09/Docker%E6%A6%82%E8%BF%B0/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/04/10/Docker%E6%A6%82%E8%BF%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-前端复习资料" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前端复习资料"><a href="#前端复习资料" class="headerlink" title="前端复习资料"></a>前端复习资料</h1><p>1.从浏览器地址栏输入url到显示页面的步骤</p>
+<p>浏览器根据请求的URL交给DNS域名解析，找到真实IP，向服务器发起http请求；<br>服务器交给后台处理完成后返回数据，浏览器接收文件（HTML、JS、CSS、图象等）；<br>浏览器对加载到的资源（HTML、JS、CSS等）进行语法解析，建立相应的内部数据结构（如HTML的DOM）；<br>载入解析到的资源文件，渲染页面，完成。?</p>
+<p>2.margin和padding分别适合什么场景使用？</p>
+<p>margin是用来隔开元素与元素的间距；<br>需要在border外侧添加空白<br>空白处不需要背景色<br>上下相连的两个盒子之间的空白，需要相互抵消时。</p>
+<p>padding是用来隔开元素与内容的间隔。<br>需要在border内侧添加空白<br>空白处需要背景颜色<br>上下相连的两个盒子的空白，希望为两者之和。</p>
+<p>3.请描述一下cookies，sessionStorage和 localStorage的区别？<br>cookie是网站为了标示用户身份而储存在用户本地终端上的数据；cookie数据始终在同源的http请求中携带（即使不需要），也会在浏览器和服务器间来回传递。<br>sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存；<br>存储大小：<br>cookie数据大小不能超过4k sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大。<br>有效时间：<br>localStorage存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；<br>sessionStorage数据在当前浏览器窗口关闭后自动删除；<br>cookie设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭</p>
+<p>4、position有哪些值？有什么作用？<br>static。默认值，不脱离文档流，top，right，bottom，left等属性不生效。<br>relative。不脱离文档流，依据自身位置进行偏离，当子元素设置absolute，将依据它进行偏离。<br>absolute。脱离文档流，依据top，right，bottom，left等属性在正常文档流中偏移位置。<br>fixed。通过浏览器窗口进行定位，出现滚动条的时候，不会随之滚动。</p>
+<p>5、简述div+css布局与表格布局相比的优点<br>1、TABLE表格布局。<br>优点：布局容易、快捷、兼容性好。<br>缺点：改动不便，需重新调整，工作量大。<br>2、DIV+CSS。<br>优点：布局灵活、改动方便。<br>缺点：需考虑平台的兼容性，对制作人员技能要求较高。</p>
+<p>6、水平居中的方法有哪些？<br>元素为行内元素，设置父元素text-align:center<br>如果元素宽度固定，可以设置左右margin为auto;<br>如果元素为绝对定位，设置父元素position为relative，元素设left:0;right:0;margin:auto;<br>使用flex-box布局，指定justify-content属性为center<br>display设置为tabel-ceil</p>
+<p>7、CSS优先级算法如何计算？<br>优先级就近原则，同权重情况下样式定义最近者为准<br>载入样式以最后载入的定位为准<br>优先级为: !important &gt; id &gt; class &gt; tag;</p>
+<p>8、HTML全局属性(global attribute)有哪些？<br>class:为元素设置类标识<br>data-*: 为元素增加自定义属性<br>draggable: 设置元素是否可拖拽<br>id: 元素id，文档内唯一<br>lang: 元素内容的的语言<br>style: 行内css样式<br>title: 鼠标在上方时提示信息</p>
+<p>9、垂直居中有哪些方法？<br>单行文本的话可以使用height和line-height设置同一高度。<br>position+margin：设置父元素:position: relative;，子元素height: 100px;position:absolute;top: 50%; margin: -50px 0 0 0;（定高）<br>position+transform：设置父元素position:relative,子元素：position: absolute;top: 50%;transform: translate(0, -50%);（不定高）<br>百搭flex布局(ie10+)，设置父元素display:flex;align-items: center;（不定高）</p>
+<p>10、盒子模型有哪些？它们的区别是什么？<br>盒模型分为两类: IE盒模型和标准盒模型。 两者的区别在于:<br>IE盒模型的width/height = content + border + padding<br>标准盒模型的width/height = content</p>
+<p>11、单页面应用和多页面应用区别及优缺点<br>答：单页面应用（SPA），通俗一点说就是指只有一个主页面的应用，浏览器一开始要加载所有必须的 html, js, css。所有的页面内容都包含在这个所谓的主页面中。但在写的时候，还是会分开写（页面片段），然后在交互的时候由路由程序动态载入，单页面的页面跳转，仅刷新局部资源。多应用于pc端。<br>多页面（MPA），就是指一个应用中有多个页面，页面跳转时是整页刷新<br>单页面的优点：<br>用户体验好，快，内容的改变不需要重新加载整个页面，基于这一点spa对服务器压力较小；前后端分离；页面效果会比较炫酷（比如切换页面内容时的专场动画）。<br>单页面缺点：<br>不利于seo；导航不可用，如果一定要导航需要自行实现前进、后退。（由于是单页面不能用浏览器的前进后退功能，所以需要自己建立堆栈管理）；初次加载时耗时多；页面复杂度提高很多。</p>
+<p>12、v-if 和 v-show 有什么区别？<br>v-show 仅仅控制元素的显示方式，将 display 属性在 block 和 none 来回切换；而v-if会控制这个 DOM 节点的存在与否。<br>当我们需要经常切换某个元素的显示/隐藏时，使用v-show会更加节省性能上的开销；当只需要一次显示或隐藏时，使用v-if更加合理。</p>
+<p>13、什么是js的冒泡？Vue中如何阻止冒泡事件？<br>js冒泡概念：当父元素内多级子元素绑定了同一个事件，js会依次从内往外或者从外往内执行每个元素的该事件，从而引发冒泡。<br>?js解决冒泡：event.stopPropagation()<br>vue解决冒泡： 事件.stop,例如：@click.stop=”” ,@mouseover.stop=””</p>
+<p>14、Vue组件间通信的技术有哪些？<br>1.父组件与子组件传值<br>父组件传给子组件：子组件通过props方法接受数据;<br>子组件传给父组件：$emit方法传递参数</p>
+<p>2.非父子组件间的数据传递，兄弟组件传值<br>eventBus，就是创建一个事件中心，相当于中转站，可以用它来传递事件和接收事件。也可使用vuex</p>
+<p>15、简述制作一个网页的工作流程<br>内容分析：分清展现在网络中内容的层次和逻辑关系<br>结构设计：写出合理的html结构代码<br>布局设计：使用html+css进行布局<br>样式设计：首先要使用reset.css<br>交互设计：鼠标特效<br>行为设计：js代码，ajax页面行为和从服务器获取数据<br>测试兼容性；优化性能。</p>
+<p>16．减少页面加载时间的方法有哪些？<br>1.减少HTTP请求；<br>2.合并压缩Js/css文件；<br>3.使用缓存manifest；<br>4.服务器端开启gzip；<br>5.使用CDN，用户可以就近获取所需要的资源，访问速度有保障，稳定性也有保障<br>6.外部JS和CSS放底下<br>7.尽可能少的操作DOM，某些需要重复操作的DOM可以放变量里</p>
+<p>减少http请求  合并压缩CSS JS文件  服务器端开启GZIP 使用CDN</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/09/%E5%89%8D%E7%AB%AF%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-找出被占用端口的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/04/03/%E6%89%BE%E5%87%BA%E8%A2%AB%E5%8D%A0%E7%94%A8%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%BA%94%E7%94%A8/">找出占用端口的进程</a>
+    </h1>
+  
+
+        
+        <a href="/2021/04/03/%E6%89%BE%E5%87%BA%E8%A2%AB%E5%8D%A0%E7%94%A8%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%BA%94%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2021-04-03T11:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="找出占用端口的进程"><a href="#找出占用端口的进程" class="headerlink" title="找出占用端口的进程"></a>找出占用端口的进程</h1><p>项目测试的时候需要用到某个端口进行预览，但经常遇到端口被占用的情况，而如何找出被占用端口的进程呢，下面就教一种方法。</p>
+<h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><p>windows 可以通过自带的 <code>资源监视器</code> 来查看。</p>
+<ul>
+<li><p>点击左下角启动按钮，输入 <code>resmon</code></p>
+</li>
+<li><p>点击 <code>网络</code> 标签，点击 <code>侦听端口</code> 栏</p>
+<p>即可查看端口占用情况</p>
+</li>
+</ul>
+<p>也可以使用命令 <code>netstat -ano|find &quot;:端口号&quot; |find &quot;LISTEN&quot;</code></p>
+<p>比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c:\&gt;netstat -ano|find &quot;:80&quot; |find &quot;LISTEN&quot;</span><br><span class="line">  TCP    127.0.0.1:80           0.0.0.0:0              LISTENING       616</span><br></pre></td></tr></table></figure>
+
+<p>最后的 616 就是占用 80 端口号 的进程ID</p>
+<p>也可以使用 power shell 命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-Process -Id (Get-NetTCPConnection -LocalPort 端口号).OwningProcess</span><br></pre></td></tr></table></figure>
+
+<p>比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS C:\&gt; Get-Process -Id (Get-NetTCPConnection -LocalPort 80).OwningProcess</span><br><span class="line"></span><br><span class="line">Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName</span><br><span class="line">-------  ------    -----      -----     ------     --  -- -----------</span><br><span class="line">    225      22    18528      26652       0.83    616   3 python</span><br></pre></td></tr></table></figure>
+
+<p>Id 那列对应的就是占用端口的 进程ID</p>
+<p>Windows上 根据 <code>进程ID</code> 杀死进程，可以使用如下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskkill &#x2F;F &#x2F;PID 616</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Windows上 根据 <code>进程名</code> 杀死进程，可以使用如下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskkill &#x2F;F &#x2F;IM hugo.exe</span><br></pre></td></tr></table></figure>
+
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>Linux检查 大家应该比较熟悉 使用 如下命令即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># netstat -anp|grep &quot;:80 &quot; |grep LISTEN</span><br><span class="line">tcp     0      0 0.0.0.0:80        0.0.0.0:*      LISTEN      17785&#x2F;nginx: worker</span><br></pre></td></tr></table></figure>
+
+<p>上例中， 17785就是占用端口的进程ID</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">进程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/03/%E6%89%BE%E5%87%BA%E8%A2%AB%E5%8D%A0%E7%94%A8%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%BA%94%E7%94%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-linux运维命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/26/linux%E8%BF%90%E7%BB%B4%E5%91%BD%E4%BB%A4/">linux运维命令</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/26/linux%E8%BF%90%E7%BB%B4%E5%91%BD%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2021-03-26T14:18:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="centos-ubuntu-首先安装docker"><a href="#centos-ubuntu-首先安装docker" class="headerlink" title="centos ubuntu 首先安装docker"></a>centos ubuntu 首先安装docker</h1><h1 id="ubuntu对docker比较友好"><a href="#ubuntu对docker比较友好" class="headerlink" title="(ubuntu对docker比较友好)"></a>(ubuntu对docker比较友好)</h1><h2 id="docker安装命令-使用镜像加速"><a href="#docker安装命令-使用镜像加速" class="headerlink" title="docker安装命令 使用镜像加速"></a>docker安装命令 使用镜像加速</h2><h3 id="yum-update"><a href="#yum-update" class="headerlink" title="yum update"></a>yum update</h3><h3 id="wget-O-etc-yum-repos-d-CentOS-Base-repo-http-mirrors-aliyun-com-repo-Centos-7-repo"><a href="#wget-O-etc-yum-repos-d-CentOS-Base-repo-http-mirrors-aliyun-com-repo-Centos-7-repo" class="headerlink" title="wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo"></a>wget -O /etc/yum.repos.d/CentOS-Base.repo <a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/repo/Centos-7.repo">http://mirrors.aliyun.com/repo/Centos-7.repo</a></h3><h3 id="yum-makecache-如果为centos-8-改为centos-8"><a href="#yum-makecache-如果为centos-8-改为centos-8" class="headerlink" title="yum makecache (如果为centos-8 改为centos-8)"></a>yum makecache (如果为centos-8 改为centos-8)</h3><h3 id="yum-install-docker-y"><a href="#yum-install-docker-y" class="headerlink" title="yum install docker -y"></a>yum install docker -y</h3><h3 id="systemctl-start-docker-启动docker"><a href="#systemctl-start-docker-启动docker" class="headerlink" title="systemctl start docker #启动docker"></a>systemctl start docker #启动docker</h3><h3 id="systemctl-enable-docker-开机启动docker"><a href="#systemctl-enable-docker-开机启动docker" class="headerlink" title="systemctl enable docker #开机启动docker"></a>systemctl enable docker #开机启动docker</h3><h3 id="systemctl-status-docker-查看docker状态"><a href="#systemctl-status-docker-查看docker状态" class="headerlink" title="systemctl status docker #查看docker状态"></a>systemctl status docker #查看docker状态</h3><h2 id="docker配置服务器教程"><a href="#docker配置服务器教程" class="headerlink" title="docker配置服务器教程"></a>docker配置服务器教程</h2><h2 id="docker-搭配sakura-frp-内网穿透-实现公网IP功能"><a href="#docker-搭配sakura-frp-内网穿透-实现公网IP功能" class="headerlink" title="docker  搭配sakura frp 内网穿透 实现公网IP功能"></a>docker  搭配sakura frp 内网穿透 实现公网IP功能</h2><h2 id="删库跑路命令-sudo-rm-rf"><a href="#删库跑路命令-sudo-rm-rf" class="headerlink" title="删库跑路命令: sudo rm -rf /*"></a>删库跑路命令: sudo rm -rf /*</h2><h2 id="查看磁盘信息-df-lh"><a href="#查看磁盘信息-df-lh" class="headerlink" title="查看磁盘信息: df -lh"></a>查看磁盘信息: df -lh</h2><h2 id="查看文件：cat"><a href="#查看文件：cat" class="headerlink" title="查看文件：cat"></a>查看文件：cat</h2><h2 id="查看内存信息-free-或free-m"><a href="#查看内存信息-free-或free-m" class="headerlink" title="查看内存信息: free #  或free -m"></a>查看内存信息: free #  或free -m</h2><h2 id="查看cpu占用情况-mpstat-P-ALL-1-5"><a href="#查看cpu占用情况-mpstat-P-ALL-1-5" class="headerlink" title="查看cpu占用情况:mpstat -P ALL 1 5"></a>查看cpu占用情况:mpstat -P ALL 1 5</h2><h2 id="5秒内每隔一秒打印一次CPU占用信息"><a href="#5秒内每隔一秒打印一次CPU占用信息" class="headerlink" title="(5秒内每隔一秒打印一次CPU占用信息)"></a>(5秒内每隔一秒打印一次CPU占用信息)</h2><h2 id="查看端口-netstat-help"><a href="#查看端口-netstat-help" class="headerlink" title="查看端口 netstat -help"></a>查看端口 netstat -help</h2><h2 id="查看进程-（按内存占用从大到小）"><a href="#查看进程-（按内存占用从大到小）" class="headerlink" title="查看进程  （按内存占用从大到小）"></a>查看进程  （按内存占用从大到小）</h2><h2 id="PS-e-o-“-C-p-z-a”-sort-k5-nr"><a href="#PS-e-o-“-C-p-z-a”-sort-k5-nr" class="headerlink" title="PS-e  -o “%C  : %p : %z : %a”|sort -k5 -nr"></a>PS-e  -o “%C  : %p : %z : %a”|sort -k5 -nr</h2><h2 id="按cpu利用率从大到小排列"><a href="#按cpu利用率从大到小排列" class="headerlink" title="(按cpu利用率从大到小排列)"></a>(按cpu利用率从大到小排列)</h2><h2 id="ps-e-o-“-C-p-z-a”-sort-nr"><a href="#ps-e-o-“-C-p-z-a”-sort-nr" class="headerlink" title="ps-e  -o “%C  : %p : %z : %a”|sort  -nr"></a>ps-e  -o “%C  : %p : %z : %a”|sort  -nr</h2><h2 id="查看IP地址-ifconfig-不是win下的ipconfig-比较新鲜的-ip-link"><a href="#查看IP地址-ifconfig-不是win下的ipconfig-比较新鲜的-ip-link" class="headerlink" title="查看IP地址 :ifconfig (不是win下的ipconfig) 比较新鲜的 ip link"></a>查看IP地址 :ifconfig (不是win下的ipconfig) 比较新鲜的 ip link</h2><h2 id="查看文件：cat-1"><a href="#查看文件：cat-1" class="headerlink" title="查看文件：cat"></a>查看文件：cat</h2><h1 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h1><p>上面的是Linux下的目录结构图，要知道这些目录有嘛用才能玩linux呀</p>
+<p>/bin：<br>bin是Binary的缩写, 这个目录存放着最经常使用的命令。</p>
+<p>/boot：<br>这里存放的是启动Linux时使用的一些核心文件，包括一些连接文件以及镜像文件。</p>
+<p>/dev ：<br>dev是Device(设备)的缩写, 该目录下存放的是Linux的外部设备，在Linux中访问设备的方式和访问文件的方式是相同的。</p>
+<p>/etc：<br>这个目录用来存放所有的系统管理所需要的配置文件和子目录。</p>
+<p>/home：<br>用户的主目录，在Linux中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的。</p>
+<p>/lib：<br>这个目录里存放着系统最基本的动态连接共享库，其作用类似于Windows里的DLL文件。几乎所有的应用程序都需要用到这些共享库。</p>
+<p>/lost+found：<br>这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。</p>
+<p>/media：<br>linux系统会自动识别一些设备，例如U盘、光驱等等，当识别后，linux会把识别的设备挂载到这个目录下。</p>
+<p>/mnt：<br>系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在/mnt/上，然后进入该目录就可以查看光驱里的内容了。</p>
+<p>/opt：<br> 这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。</p>
+<p>/proc：<br>这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。<br>这个目录的内容不在硬盘上而是在内存里，我们也可以直接修改里面的某些文件，比如可以通过下面的命令来屏蔽主机的ping命令，使别人无法ping你的机器：</p>
+<p>echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all<br>/root：<br>该目录为系统管理员，也称作超级权限者的用户主目录。</p>
+<p>/sbin：<br>s就是Super User的意思，这里存放的是系统管理员使用的系统管理程序。</p>
+<p>/selinux：<br> 这个目录是Redhat/CentOS所特有的目录，Selinux是一个安全机制，类似于windows的防火墙，但是这套机制比较复杂，这个目录就是存放selinux相关的文件的。</p>
+<p>/srv：<br> 该目录存放一些服务启动之后需要提取的数据。</p>
+<p>/sys：</p>
+<p> 这是linux2.6内核的一个很大的变化。该目录下安装了2.6内核中新出现的一个文件系统 sysfs 。</p>
+<p>sysfs文件系统集成了下面3种文件系统的信息：针对进程信息的proc文件系统、针对设备的devfs文件系统以及针对伪终端的devpts文件系统。</p>
+<p>该文件系统是内核设备树的一个直观反映。</p>
+<p>当一个内核对象被创建的时候，对应的文件和目录也在内核对象子系统中被创建。</p>
+<p>/tmp：<br>这个目录是用来存放一些临时文件的。</p>
+<p>/usr：<br> 这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于windows下的program files目录。</p>
+<p>/usr/bin：<br>系统用户使用的应用程序。</p>
+<p>/usr/sbin：<br>超级用户使用的比较高级的管理程序和系统守护程序。</p>
+<p>/usr/src：<br>内核源代码默认的放置目录。</p>
+<p>/var：<br>这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。</p>
+<p>/run：<br>是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。如果你的系统上有 /var/run 目录，应该让它指向 run</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux,运维命令</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/26/linux%E8%BF%90%E7%BB%B4%E5%91%BD%E4%BB%A4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-centos安装tomcat+jdk+mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/16/centos%E5%AE%89%E8%A3%85tomcat+jdk+mysql/">centos安装tomcat+jdk+mysql</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/16/centos%E5%AE%89%E8%A3%85tomcat+jdk+mysql/" class="archive-article-date">
+  	<time datetime="2021-03-16T14:18:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>提前准备:win10系统电脑（安装有secureFX 和secureCRT。或其他远程连接软件）,远程连接的电脑(虚拟机or云服务器)</p>
+<h1 id="JDK安装"><a href="#JDK安装" class="headerlink" title="JDK安装"></a>JDK安装</h1><p>1 用securefxp传输jdk到/home<br>2 cd /home<br>3 cp jdk-8u181-linux-x64.tar.gz /usr/local/<br>4 cd /usr/local<br>5 tar xvfz jdk-8u181-linux-x64.tar.gz<br>6 mv jdk1.8.0_181/ jdk1.8<br>7 修改环境变量<br>vi /etc/profile<br>在末尾添加：<br>#set javaenvironment<br>export JAVA_HOME=/usr/local/jdk1.8<br>export PATH=$JAVA_HOME/bin:$PATH<br>export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</p>
+<p>8让配置生效<br>source /etc/profile<br>9 验证<br>java -version</p>
+<h1 id="Mysql安装"><a href="#Mysql安装" class="headerlink" title="Mysql安装"></a>Mysql安装</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_20258573/article/details/91795867">https://blog.csdn.net/qq_20258573/article/details/91795867</a></p>
+<p>1 更新源<br>wget <a target="_blank" rel="noopener" href="http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm">http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm</a></p>
+<p>2<br>yum localinstall mysql57-community-release-el7-8.noarch.rpm </p>
+<p>3 安装MySQL<br>yum install mysql-community-server</p>
+<p>6.启动MySQL服务</p>
+<p>shell&gt; systemctl start mysqld</p>
+<p>7.开机启动</p>
+<p>systemctl enable mysqld</p>
+<p>systemctl daemon-reload</p>
+<p>8.修改root本地登录密码</p>
+<p> 1）查看mysql密码</p>
+<p>grep “temporary password” /var/log/mysqld.log</p>
+<p>2）连接mysql</p>
+<p>shell&gt; mysql -u root -p</p>
+<p>3）修改密码[注意：后面的分号一定要跟上]</p>
+<p>mysql&gt; ALTER USER ‘root’@’localhost’ IDENTIFIED BY ‘MyNewPass4!’;</p>
+<p>或者：</p>
+<p>mysql&gt; set password for ‘root’@’localhost’=password(‘MyNewPass4!’); </p>
+<h1 id="Tomcat安装"><a href="#Tomcat安装" class="headerlink" title="Tomcat安装"></a>Tomcat安装</h1><p>(1) 用secureFx传输文件到 /root<br>(2) cd /usr/local/<br>(3) cp /root/apache-tomcat-8.5.46.tar.gz .<br>(4) tar xvfz apache-tomcat-8.5.46.tar.gz<br>(5)systemctl stop firewalld.service    关闭防火墙<br>firewall-cmd –state<br>(6) cd apache-tomcat-8.5.46/bin<br>(7) ./startup.sh   运行apache<br>ps -ef | grep “java”<br>netstat -an | grep “8080”<br>用浏览器访问：  <a target="_blank" rel="noopener" href="http://192.168.2.131:8080/">http://192.168.2.131:8080/</a><br>(8)<br>cd /usr/local/apache-tomcat-8.5.46/webapps/ROOT<br>(9)<br>vi hello.htm  拷贝下列内容到hello.htm</p>
+<html>
+<head>
+  <title> welcome </title>
+</head>
+<body>
+   hello world!
+</body>
+</html>
+
+<p>(10) 访问 <a target="_blank" rel="noopener" href="http://xxxx/hello.htm">http://xxxx/hello.htm</a></p>
+<p>(11) 新开ssh窗口<br>(12) cd /usr/local/apache-tomcat-8.5.46/logs<br>tail -f localhost_access_log.2019-09-27.txt</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux,centos</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/16/centos%E5%AE%89%E8%A3%85tomcat+jdk+mysql/">展开全文 >></a>
         </p>
       
 
@@ -472,6 +815,21 @@
   
     <article id="post-Typora快捷键" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/14/Typora%E5%BF%AB%E6%8D%B7%E9%94%AE/">Typora快捷键</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/14/Typora%E5%BF%AB%E6%8D%B7%E9%94%AE/" class="archive-article-date">
+  	<time datetime="2021-03-14T07:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -565,6 +923,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Typora、Markdown</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -599,8 +968,112 @@
 
 
   
+    <article id="post-python笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/10/python%E7%AC%94%E8%AE%B0/">Python笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/10/python%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2021-03-10T03:48:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Python笔记</p>
+<p>#区别字母大小写</p>
+<p>#迭代器和生成器的区别</p>
+<p>#在Python中，等号<code>=</code>是赋值语句，可以把任意数据类型赋值给变量，同一个变量可以反复赋值，而且可以是不同类型的变量，例如：</p>
+<p>这种变量本身类型不固定的语言称之为<em>动态语言</em>，与之对应的是<em>静态语言</em>。静态语言在定义变量时必须指定变量类型，如果赋值的时候类型不匹配，就会报错。例如Java是静态语言，赋值语句如下（// 表示注释）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int a &#x3D; 123; &#x2F;&#x2F; a是整数类型变量</span><br><span class="line">a &#x3D; &quot;ABC&quot;; &#x2F;&#x2F; 错误：不能把字符串赋给整型变量</span><br></pre></td></tr></table></figure>
+
+<h1 id><a href="#" class="headerlink" title></a></h1><p>a = ‘ABC’<br>b = a<br>a = ‘XYZ’<br>print(b)</p>
+<p>最后一行打印出变量<code>b</code>的内容到底是<code>&#39;ABC&#39;</code>呢还是<code>&#39;XYZ&#39;</code>？如果从数学意义上理解，就会错误地得出<code>b</code>和<code>a</code>相同，也应该是<code>&#39;XYZ&#39;</code>，但实际上<code>b</code>的值是<code>&#39;ABC&#39;</code>，让我们一行一行地执行代码，就可以看到到底发生了什么事：</p>
+<p>执行<code>a = &#39;ABC&#39;</code>，解释器创建了字符串<code>&#39;ABC&#39;</code>和变量<code>a</code>，并把<code>a</code>指向<code>&#39;ABC&#39;</code>：<br><img src="/2021/03/10/python%E7%AC%94%E8%AE%B0/0"><br>执行<code>b = a</code>，解释器创建了变量<code>b</code>，并把<code>b</code>指向<code>a</code>指向的字符串<code>&#39;ABC&#39;</code>：</p>
+<p><img src="/2021/03/10/python%E7%AC%94%E8%AE%B0/0"></p>
+<p>执行<code>a = &#39;XYZ&#39;</code>，解释器创建了字符串’XYZ’，并把<code>a</code>的指向改为<code>&#39;XYZ&#39;</code>，但<code>b</code>并没有更改：</p>
+<p><img src="/2021/03/10/python%E7%AC%94%E8%AE%B0/0"></p>
+<p>所以，最后打印变量<code>b</code>的结果自然是<code>&#39;ABC&#39;</code>了</p>
+<p>对变量赋值<code>x = y</code>是把变量<code>x</code>指向真正的对象，该对象是变量<code>y</code>所指向的。随后对变量<code>y</code>的赋值<em>不影响</em>变量<code>x</code>的指向。</p>
+<p>#协程比进程快的原因    </p>
+<h3 id="list-和tuple-是Python内置的有序集合，一个可变，一个不可变。根据需要来选择使用它们。"><a href="#list-和tuple-是Python内置的有序集合，一个可变，一个不可变。根据需要来选择使用它们。" class="headerlink" title="list[]和tuple()是Python内置的有序集合，一个可变，一个不可变。根据需要来选择使用它们。"></a>list[]和tuple()是Python内置的有序集合，一个可变，一个不可变。根据需要来选择使用它们。</h3>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/10/python%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-基于华为云服务器搭建方舟私服教程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/10/%E5%9F%BA%E4%BA%8E%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E6%96%B9%E8%88%9F%E7%A7%81%E6%9C%8D%E6%95%99%E7%A8%8B/">华为云开方舟私服教程</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/10/%E5%9F%BA%E4%BA%8E%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E6%96%B9%E8%88%9F%E7%A7%81%E6%9C%8D%E6%95%99%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2021-02-10T03:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-10</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -680,92 +1153,12 @@
     <div class="article-info article-info-index">
       
       
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/13/%E5%9F%BA%E4%BA%8E%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E6%96%B9%E8%88%9F%E7%A7%81%E6%9C%8D%E6%95%99%E7%A8%8B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-python笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/10/python%E7%AC%94%E8%AE%B0/">Python笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2021/03/10/python%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2021-03-10T03:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Python笔记</p>
-<p>#区别字母大小写</p>
-<p>#迭代器和生成器的区别</p>
-<p>#在Python中，等号<code>=</code>是赋值语句，可以把任意数据类型赋值给变量，同一个变量可以反复赋值，而且可以是不同类型的变量，例如：</p>
-<p>这种变量本身类型不固定的语言称之为<em>动态语言</em>，与之对应的是<em>静态语言</em>。静态语言在定义变量时必须指定变量类型，如果赋值的时候类型不匹配，就会报错。例如Java是静态语言，赋值语句如下（// 表示注释）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int a &#x3D; 123; &#x2F;&#x2F; a是整数类型变量</span><br><span class="line">a &#x3D; &quot;ABC&quot;; &#x2F;&#x2F; 错误：不能把字符串赋给整型变量</span><br></pre></td></tr></table></figure>
-
-<h1 id><a href="#" class="headerlink" title></a></h1><p>a = ‘ABC’<br>b = a<br>a = ‘XYZ’<br>print(b)</p>
-<p>最后一行打印出变量<code>b</code>的内容到底是<code>&#39;ABC&#39;</code>呢还是<code>&#39;XYZ&#39;</code>？如果从数学意义上理解，就会错误地得出<code>b</code>和<code>a</code>相同，也应该是<code>&#39;XYZ&#39;</code>，但实际上<code>b</code>的值是<code>&#39;ABC&#39;</code>，让我们一行一行地执行代码，就可以看到到底发生了什么事：</p>
-<p>执行<code>a = &#39;ABC&#39;</code>，解释器创建了字符串<code>&#39;ABC&#39;</code>和变量<code>a</code>，并把<code>a</code>指向<code>&#39;ABC&#39;</code>：</p>
-<p><img src="https://www.liaoxuefeng.com/files/attachments/923791878255456/0" alt="py-var-code-1"></p>
-<p>执行<code>b = a</code>，解释器创建了变量<code>b</code>，并把<code>b</code>指向<code>a</code>指向的字符串<code>&#39;ABC&#39;</code>：</p>
-<p><img src="https://www.liaoxuefeng.com/files/attachments/923792058613440/0" alt="py-var-code-2"></p>
-<p>执行<code>a = &#39;XYZ&#39;</code>，解释器创建了字符串’XYZ’，并把<code>a</code>的指向改为<code>&#39;XYZ&#39;</code>，但<code>b</code>并没有更改：</p>
-<p><img src="https://www.liaoxuefeng.com/files/attachments/923792191637760/0" alt="py-var-code-3"></p>
-<p>所以，最后打印变量<code>b</code>的结果自然是<code>&#39;ABC&#39;</code>了</p>
-<p>对变量赋值<code>x = y</code>是把变量<code>x</code>指向真正的对象，该对象是变量<code>y</code>所指向的。随后对变量<code>y</code>的赋值<em>不影响</em>变量<code>x</code>的指向。</p>
-<p>#协程比进程快的原因    </p>
-<h3 id="list-和tuple-是Python内置的有序集合，一个可变，一个不可变。根据需要来选择使用它们。"><a href="#list-和tuple-是Python内置的有序集合，一个可变，一个不可变。根据需要来选择使用它们。" class="headerlink" title="list[]和tuple()是Python内置的有序集合，一个可变，一个不可变。根据需要来选择使用它们。"></a>list[]和tuple()是Python内置的有序集合，一个可变，一个不可变。根据需要来选择使用它们。</h3>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">云服务器</a>
         		</li>
       		
 		</ul>
@@ -775,7 +1168,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/10/python%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/02/10/%E5%9F%BA%E4%BA%8E%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E6%96%B9%E8%88%9F%E7%A7%81%E6%9C%8D%E6%95%99%E7%A8%8B/">展开全文 >></a>
         </p>
       
 
@@ -901,6 +1294,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Typora、Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Linux,centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux,运维命令</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">云服务器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">进程</a>
               </li>
             
             <div class="clearfix"></div>

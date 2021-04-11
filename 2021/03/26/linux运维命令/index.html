@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://lavard.cn">
-  <title>Hexo</title>
+  <title>linux运维命令 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Docker学习笔记个人理解：一个镜像可以启动多个容器，大概相等于类与实例的关系   镜像(Image)docker镜像就像是一个模板，可以通过这个模板来创建容器服务，TOMCATj镜像&#x3D;&#x3D;&#x3D;》run&#x3D;&#x3D;&#x3D;》tomcat01容器（提供服务器）通过这个镜像可以创建多个容器(最终服务运行或项目运行就是在容器中的)。 容器(container)docker利用容器技术，独立运行一个或者一个租应用。通过镜">
+  <meta name="description" content="centos ubuntu 首先安装docker(ubuntu对docker比较友好)docker安装命令 使用镜像加速yum updatewget -O &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repoyum makecache (如果为centos-8 改为centos-8)yum in">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://lavard.cn/2021/04/09/Docker%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:title" content="linux运维命令">
+<meta property="og:url" content="http://lavard.cn/2021/03/26/linux%E8%BF%90%E7%BB%B4%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Docker学习笔记个人理解：一个镜像可以启动多个容器，大概相等于类与实例的关系   镜像(Image)docker镜像就像是一个模板，可以通过这个模板来创建容器服务，TOMCATj镜像&#x3D;&#x3D;&#x3D;》run&#x3D;&#x3D;&#x3D;》tomcat01容器（提供服务器）通过这个镜像可以创建多个容器(最终服务运行或项目运行就是在容器中的)。 容器(container)docker利用容器技术，独立运行一个或者一个租应用。通过镜">
+<meta property="og:description" content="centos ubuntu 首先安装docker(ubuntu对docker比较友好)docker安装命令 使用镜像加速yum updatewget -O &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repoyum makecache (如果为centos-8 改为centos-8)yum in">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-04-09T03:53:34.884Z">
-<meta property="article:modified_time" content="2021-04-02T16:10:02.138Z">
+<meta property="article:published_time" content="2021-03-26T14:18:42.000Z">
+<meta property="article:modified_time" content="2021-04-11T07:08:24.587Z">
 <meta property="article:author" content="lavard">
+<meta property="article:tag" content="Linux,运维命令">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -154,135 +155,54 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Docker概述" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-linux运维命令" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      linux运维命令
+    </h1>
+  
+
+        
+        <a href="/2021/03/26/linux%E8%BF%90%E7%BB%B4%E5%91%BD%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2021-03-26T14:18:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-26</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Docker学习笔记"><a href="#Docker学习笔记" class="headerlink" title="Docker学习笔记"></a>Docker学习笔记</h1><p>个人理解：一个镜像可以启动多个容器，大概相等于类与实例的关系  </p>
-<h2 id="镜像-Image"><a href="#镜像-Image" class="headerlink" title="镜像(Image)"></a>镜像(Image)</h2><p>docker镜像就像是一个模板，可以通过这个模板来创建容器服务，TOMCATj镜像===》run===》tomcat01容器（提供服务器）通过这个镜像可以创建多个容器(最终服务运行或项目运行就是在容器中的)。</p>
-<h2 id="容器-container"><a href="#容器-container" class="headerlink" title="容器(container)"></a>容器(container)</h2><p>docker利用容器技术，独立运行一个或者一个租应用。通过镜像来创建的。</p>
-<p>启动，停止，删除，基本命令！</p>
-<p>可以将容器理解为简易的Linux系统</p>
-<h3 id="说明：我们有了镜像才可以创建容器，linux下载一个centos镜像来学习"><a href="#说明：我们有了镜像才可以创建容器，linux下载一个centos镜像来学习" class="headerlink" title="说明：我们有了镜像才可以创建容器，linux下载一个centos镜像来学习"></a>说明：我们有了镜像才可以创建容器，linux下载一个centos镜像来学习</h3><p>docker pull cenots</p>
-<h3 id="新建容器并启动容器"><a href="#新建容器并启动容器" class="headerlink" title="新建容器并启动容器"></a>新建容器并启动容器</h3><p>docker run [可选参数] image</p>
-<p>#参数说明</p>
-<p>–name=’Name’  容器名词 tomcat01</p>
-<p>-d                          后台方式运行</p>
-<p>-it                         使用交互方式进行，进入容器查看内容</p>
-<p>-p                         指定容器的端口 -p</p>
-<p>​        -p  ip:主机端口：容器端口</p>
-<p>​        -p  主机端口：容器端口</p>
-<p>​        -p   容器端口</p>
-<p>-p                          随机指定端口</p>
-<p>#测试，进入容器</p>
-<p>docker run -it cenots /bin/bash</p>
-<h3 id="列出所有的运行的容器"><a href="#列出所有的运行的容器" class="headerlink" title="列出所有的运行的容器"></a>列出所有的运行的容器</h3><p>docker ps命令</p>
-<h3 id="退出容器"><a href="#退出容器" class="headerlink" title="退出容器"></a>退出容器</h3><p>exit</p>
-<p>ctrl +p+q</p>
-<h3 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h3><p>docker  rm 容器id  #删除指定的容器，不能删除正在运行的容器</p>
-<p>docker  rm -f $(docker ps -aq) #强制删除容器 -f   -r递归删除</p>
-<h3 id="启动和停止容器的操作"><a href="#启动和停止容器的操作" class="headerlink" title="启动和停止容器的操作"></a>启动和停止容器的操作</h3><p>docker start 容器id </p>
-<p>docker restart 容器id </p>
-<p>docker stop 容器id</p>
-<p> docker kill 容器id</p>
-<h2 id="仓库-repository"><a href="#仓库-repository" class="headerlink" title="仓库(repository)"></a>仓库(repository)</h2><p>仓库就是存放镜像的地方</p>
-<p>仓库分公有和私有仓库</p>
-<p>Docker Hub （默认是国外的）</p>
-<p>国内阿里云华为云等都有容器服务器(配置镜像加速)</p>
-<ul>
-<li><p>Docker概述 (容器 镜像 仓库)</p>
-<p>产品：开发环境  —–上线环境  两套环境  应用环境 应用配置</p>
-<p>开发： 运维  问题：在我的电脑可以运行，你的电脑不可以运行</p>
-<p>或版本更新服务不可用，对运维来说考验非常大 </p>
-<p>环境配置十分麻烦，每一个机器都要部署(集群 Redis ,ES,Hadoop)</p>
-<p>发布一个项目 jar +（Redis Mysql jdk ES）,带上环境安装打包发布</p>
-<p>运维开发都要干</p>
-</li>
-<li><h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><ol>
-<li><p>/uname -v</p>
-</li>
-<li><p>需要的安装包</p>
-<p>yum install -y yum-utils</p>
-</li>
-<li><p>设置镜像仓库</p>
-<p>yum-config-manger \</p>
-<p>–add-eepo \</p>
-<p> yum-config-manager –add-repo <a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo">http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a></p>
-</li>
-<li><p>更新yum软件包索引</p>
-<p>sudo yum makecache fast</p>
-</li>
-<li><p>安装docker docker-ce 社区  ee企业版</p>
-<p> yum install docker-ce docker-ce-cli containerd.io</p>
-</li>
-<li><p>启动docker</p>
-<p>systemctl start docker</p>
-<p>sudo service docker start</p>
-</li>
-<li><p>测试</p>
-<p>docker run hello-world</p>
-<p>docker images(docker镜像   查看这个镜像)</p>
-</li>
-<li><p>卸载docker</p>
-<p>yum remove docker-ce docker-ce-cli containerd.io</p>
-<p>rm -rf /var/lib/docker </p>
-<p>/var/lib/docker  docker的默认工作路径</p>
-</li>
-</ol>
-<p>阿里云镜像加速  容器镜像服务(本人使用华为云)</p>
-</li>
-</ul>
-<ul>
-<li><h1 id="Docker集群"><a href="#Docker集群" class="headerlink" title="Docker集群"></a>Docker集群</h1></li>
-<li><h1 id="Docker命令"><a href="#Docker命令" class="headerlink" title="Docker命令"></a>Docker命令</h1><h2 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h2><p>docker version        # 查看版本信息命令</p>
-<p>docker info             # 显示docker的系统信息包括镜像和容器的数量</p>
-<p>docker 命令 –help # 万能命令</p>
-<p>官网帮助文档的地址:<a target="_blank" rel="noopener" href="https://docs.docker.com/reference/">https://docs.docker.com/reference/</a></p>
-</li>
-<li><ul>
-<li><p>镜像命令</p>
-<p>docker images 查看本地所有镜像</p>
-<p>参数(-a 显示所有-f 过滤器 -q 只显示ID ）</p>
-<p>docker search </p>
-<p>参数(–filter stars=3000)</p>
-<p>docker pull 下载最新 镜像名[:tag] 不写tag 默认最新</p>
-<p>其他命令  -d 后台启动</p>
-<p>docker top</p>
-<p>docker ps</p>
-<p>docker inspect 查看</p>
-<h3 id="进入当前正在运行的容器"><a href="#进入当前正在运行的容器" class="headerlink" title="进入当前正在运行的容器"></a>进入当前正在运行的容器</h3><p>docker exec -it 容器ID (交互模式)</p>
-<p>docker attach -it 容器ID</p>
-</li>
-<li><p>容器命令</p>
-</li>
-<li><p>操作命令</p>
-<h3 id="从容器内拷贝文件到主机上"><a href="#从容器内拷贝文件到主机上" class="headerlink" title="从容器内拷贝文件到主机上"></a>从容器内拷贝文件到主机上</h3><p>docker cp 容器id </p>
-</li>
-</ul>
-</li>
-<li><h1 id="DOCKER安装nginx-tomcat-ES"><a href="#DOCKER安装nginx-tomcat-ES" class="headerlink" title="DOCKER安装nginx tomcat ES"></a>DOCKER安装nginx tomcat ES</h1><h1 id="elasticsearch-kibana"><a href="#elasticsearch-kibana" class="headerlink" title="(elasticsearch )+kibana"></a>(elasticsearch )+kibana</h1><p> docker安装tomcat</p>
-<p>docker run -it  –rm tomcat:9.0(官方使用 测试用，用完即删)</p>
-<p>#后台启动，停止容器了之后，容器还是可以查到， 加了rm之后用完就删除</p>
-<p>#下载再启动</p>
-<p>docker pull tomcat</p>
-<p>#启动运行</p>
-<p>docker run -d -p 3355:8080 –name tomcat01 tomcat</p>
-<p>#测试访问没有问题</p>
-<p>#进入容器</p>
-<p>#docker exec -it tomcat01 /bin/bash</p>
-<p>#发现问题1.linux命令少了 2.没有webapps 阿里云镜像的原因默认是最小的镜像，所有不必要的都剔除掉</p>
-<p>保证最小可运行的环境</p>
-</li>
-<li><h1 id="Docker-File"><a href="#Docker-File" class="headerlink" title="Docker File"></a>Docker File</h1></li>
-<li><h1 id="容器数据卷"><a href="#容器数据卷" class="headerlink" title="容器数据卷"></a>容器数据卷</h1></li>
-<li></li>
-<li><h1 id="IDEA整合Docker"><a href="#IDEA整合Docker" class="headerlink" title="IDEA整合Docker"></a>IDEA整合Docker</h1></li>
-<li><h1 id="Docker网络原理"><a href="#Docker网络原理" class="headerlink" title="Docker网络原理"></a>Docker网络原理</h1></li>
-<li><h1 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h1></li>
-<li><h1 id="Docker-Swarm"><a href="#Docker-Swarm" class="headerlink" title="Docker Swarm"></a>Docker Swarm</h1></li>
-<li><h1 id="CI-CD-Jenkins"><a href="#CI-CD-Jenkins" class="headerlink" title="CI\CD Jenkins"></a>CI\CD Jenkins</h1></li>
-</ul>
+        <h1 id="centos-ubuntu-首先安装docker"><a href="#centos-ubuntu-首先安装docker" class="headerlink" title="centos ubuntu 首先安装docker"></a>centos ubuntu 首先安装docker</h1><h1 id="ubuntu对docker比较友好"><a href="#ubuntu对docker比较友好" class="headerlink" title="(ubuntu对docker比较友好)"></a>(ubuntu对docker比较友好)</h1><h2 id="docker安装命令-使用镜像加速"><a href="#docker安装命令-使用镜像加速" class="headerlink" title="docker安装命令 使用镜像加速"></a>docker安装命令 使用镜像加速</h2><h3 id="yum-update"><a href="#yum-update" class="headerlink" title="yum update"></a>yum update</h3><h3 id="wget-O-etc-yum-repos-d-CentOS-Base-repo-http-mirrors-aliyun-com-repo-Centos-7-repo"><a href="#wget-O-etc-yum-repos-d-CentOS-Base-repo-http-mirrors-aliyun-com-repo-Centos-7-repo" class="headerlink" title="wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo"></a>wget -O /etc/yum.repos.d/CentOS-Base.repo <a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/repo/Centos-7.repo">http://mirrors.aliyun.com/repo/Centos-7.repo</a></h3><h3 id="yum-makecache-如果为centos-8-改为centos-8"><a href="#yum-makecache-如果为centos-8-改为centos-8" class="headerlink" title="yum makecache (如果为centos-8 改为centos-8)"></a>yum makecache (如果为centos-8 改为centos-8)</h3><h3 id="yum-install-docker-y"><a href="#yum-install-docker-y" class="headerlink" title="yum install docker -y"></a>yum install docker -y</h3><h3 id="systemctl-start-docker-启动docker"><a href="#systemctl-start-docker-启动docker" class="headerlink" title="systemctl start docker #启动docker"></a>systemctl start docker #启动docker</h3><h3 id="systemctl-enable-docker-开机启动docker"><a href="#systemctl-enable-docker-开机启动docker" class="headerlink" title="systemctl enable docker #开机启动docker"></a>systemctl enable docker #开机启动docker</h3><h3 id="systemctl-status-docker-查看docker状态"><a href="#systemctl-status-docker-查看docker状态" class="headerlink" title="systemctl status docker #查看docker状态"></a>systemctl status docker #查看docker状态</h3><h2 id="docker配置服务器教程"><a href="#docker配置服务器教程" class="headerlink" title="docker配置服务器教程"></a>docker配置服务器教程</h2><h2 id="docker-搭配sakura-frp-内网穿透-实现公网IP功能"><a href="#docker-搭配sakura-frp-内网穿透-实现公网IP功能" class="headerlink" title="docker  搭配sakura frp 内网穿透 实现公网IP功能"></a>docker  搭配sakura frp 内网穿透 实现公网IP功能</h2><h2 id="删库跑路命令-sudo-rm-rf"><a href="#删库跑路命令-sudo-rm-rf" class="headerlink" title="删库跑路命令: sudo rm -rf /*"></a>删库跑路命令: sudo rm -rf /*</h2><h2 id="查看磁盘信息-df-lh"><a href="#查看磁盘信息-df-lh" class="headerlink" title="查看磁盘信息: df -lh"></a>查看磁盘信息: df -lh</h2><h2 id="查看文件：cat"><a href="#查看文件：cat" class="headerlink" title="查看文件：cat"></a>查看文件：cat</h2><h2 id="查看内存信息-free-或free-m"><a href="#查看内存信息-free-或free-m" class="headerlink" title="查看内存信息: free #  或free -m"></a>查看内存信息: free #  或free -m</h2><h2 id="查看cpu占用情况-mpstat-P-ALL-1-5"><a href="#查看cpu占用情况-mpstat-P-ALL-1-5" class="headerlink" title="查看cpu占用情况:mpstat -P ALL 1 5"></a>查看cpu占用情况:mpstat -P ALL 1 5</h2><h2 id="5秒内每隔一秒打印一次CPU占用信息"><a href="#5秒内每隔一秒打印一次CPU占用信息" class="headerlink" title="(5秒内每隔一秒打印一次CPU占用信息)"></a>(5秒内每隔一秒打印一次CPU占用信息)</h2><h2 id="查看端口-netstat-help"><a href="#查看端口-netstat-help" class="headerlink" title="查看端口 netstat -help"></a>查看端口 netstat -help</h2><h2 id="查看进程-（按内存占用从大到小）"><a href="#查看进程-（按内存占用从大到小）" class="headerlink" title="查看进程  （按内存占用从大到小）"></a>查看进程  （按内存占用从大到小）</h2><h2 id="PS-e-o-“-C-p-z-a”-sort-k5-nr"><a href="#PS-e-o-“-C-p-z-a”-sort-k5-nr" class="headerlink" title="PS-e  -o “%C  : %p : %z : %a”|sort -k5 -nr"></a>PS-e  -o “%C  : %p : %z : %a”|sort -k5 -nr</h2><h2 id="按cpu利用率从大到小排列"><a href="#按cpu利用率从大到小排列" class="headerlink" title="(按cpu利用率从大到小排列)"></a>(按cpu利用率从大到小排列)</h2><h2 id="ps-e-o-“-C-p-z-a”-sort-nr"><a href="#ps-e-o-“-C-p-z-a”-sort-nr" class="headerlink" title="ps-e  -o “%C  : %p : %z : %a”|sort  -nr"></a>ps-e  -o “%C  : %p : %z : %a”|sort  -nr</h2><h2 id="查看IP地址-ifconfig-不是win下的ipconfig-比较新鲜的-ip-link"><a href="#查看IP地址-ifconfig-不是win下的ipconfig-比较新鲜的-ip-link" class="headerlink" title="查看IP地址 :ifconfig (不是win下的ipconfig) 比较新鲜的 ip link"></a>查看IP地址 :ifconfig (不是win下的ipconfig) 比较新鲜的 ip link</h2><h2 id="查看文件：cat-1"><a href="#查看文件：cat-1" class="headerlink" title="查看文件：cat"></a>查看文件：cat</h2><h1 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h1><p>上面的是Linux下的目录结构图，要知道这些目录有嘛用才能玩linux呀</p>
+<p>/bin：<br>bin是Binary的缩写, 这个目录存放着最经常使用的命令。</p>
+<p>/boot：<br>这里存放的是启动Linux时使用的一些核心文件，包括一些连接文件以及镜像文件。</p>
+<p>/dev ：<br>dev是Device(设备)的缩写, 该目录下存放的是Linux的外部设备，在Linux中访问设备的方式和访问文件的方式是相同的。</p>
+<p>/etc：<br>这个目录用来存放所有的系统管理所需要的配置文件和子目录。</p>
+<p>/home：<br>用户的主目录，在Linux中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的。</p>
+<p>/lib：<br>这个目录里存放着系统最基本的动态连接共享库，其作用类似于Windows里的DLL文件。几乎所有的应用程序都需要用到这些共享库。</p>
+<p>/lost+found：<br>这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。</p>
+<p>/media：<br>linux系统会自动识别一些设备，例如U盘、光驱等等，当识别后，linux会把识别的设备挂载到这个目录下。</p>
+<p>/mnt：<br>系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在/mnt/上，然后进入该目录就可以查看光驱里的内容了。</p>
+<p>/opt：<br> 这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。</p>
+<p>/proc：<br>这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。<br>这个目录的内容不在硬盘上而是在内存里，我们也可以直接修改里面的某些文件，比如可以通过下面的命令来屏蔽主机的ping命令，使别人无法ping你的机器：</p>
+<p>echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all<br>/root：<br>该目录为系统管理员，也称作超级权限者的用户主目录。</p>
+<p>/sbin：<br>s就是Super User的意思，这里存放的是系统管理员使用的系统管理程序。</p>
+<p>/selinux：<br> 这个目录是Redhat/CentOS所特有的目录，Selinux是一个安全机制，类似于windows的防火墙，但是这套机制比较复杂，这个目录就是存放selinux相关的文件的。</p>
+<p>/srv：<br> 该目录存放一些服务启动之后需要提取的数据。</p>
+<p>/sys：</p>
+<p> 这是linux2.6内核的一个很大的变化。该目录下安装了2.6内核中新出现的一个文件系统 sysfs 。</p>
+<p>sysfs文件系统集成了下面3种文件系统的信息：针对进程信息的proc文件系统、针对设备的devfs文件系统以及针对伪终端的devpts文件系统。</p>
+<p>该文件系统是内核设备树的一个直观反映。</p>
+<p>当一个内核对象被创建的时候，对应的文件和目录也在内核对象子系统中被创建。</p>
+<p>/tmp：<br>这个目录是用来存放一些临时文件的。</p>
+<p>/usr：<br> 这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于windows下的program files目录。</p>
+<p>/usr/bin：<br>系统用户使用的应用程序。</p>
+<p>/usr/sbin：<br>超级用户使用的比较高级的管理程序和系统守护程序。</p>
+<p>/usr/src：<br>内核源代码默认的放置目录。</p>
+<p>/var：<br>这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。</p>
+<p>/run：<br>是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。如果你的系统上有 /var/run 目录，应该让它指向 run</p>
 
       
 
@@ -322,6 +242,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux,运维命令</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -372,7 +303,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://lavard.cn/2021/04/09/Docker%E6%A6%82%E8%BF%B0/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://lavard.cn/2021/03/26/linux%E8%BF%90%E7%BB%B4%E5%91%BD%E4%BB%A4/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -386,18 +317,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/04/09/%E5%89%8D%E7%AB%AF%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/04/03/%E6%89%BE%E5%87%BA%E8%A2%AB%E5%8D%A0%E7%94%A8%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%BA%94%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          找出占用端口的进程
         
       </div>
     </a>
   
   
-    <a href="/2021/03/14/Typora%E5%BF%AB%E6%8D%B7%E9%94%AE/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2021/03/16/centos%E5%AE%89%E8%A3%85tomcat+jdk+mysql/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">centos安装tomcat+jdk+mysql</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -526,6 +457,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Typora、Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Linux,centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux,运维命令</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">云服务器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">进程</a>
               </li>
             
             <div class="clearfix"></div>

@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://lavard.cn">
-  <title>Hexo</title>
+  <title>Docker学习笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="项目测试的时候需要用到某个端口进行预览，但经常遇到端口被占用的情况，而如何找出被占用端口的进程呢，下面就教一种方法。找出占用端口的进程Windowswindows 可以通过自带的 资源监视器 来查看。  点击左下角启动按钮，输入 resmon  点击 网络 标签，点击 侦听端口 栏 即可查看端口占用情况   也可以使用命令 netstat -ano|find &quot;:端口号&quot; |f">
+  <meta name="description" content="Docker学习笔记个人理解：一个镜像可以启动多个容器，大概相等于类与实例的关系   镜像(Image)docker镜像就像是一个模板，可以通过这个模板来创建容器服务，TOMCATj镜像&#x3D;&#x3D;&#x3D;》run&#x3D;&#x3D;&#x3D;》tomcat01容器（提供服务器）通过这个镜像可以创建多个容器(最终服务运行或项目运行就是在容器中的)。 容器(container)docker利用容器技术，独立运行一个或者一个租应用。通过镜">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://lavard.cn/2021/04/09/%E6%89%BE%E5%87%BA%E8%A2%AB%E5%8D%A0%E7%94%A8%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:title" content="Docker学习笔记">
+<meta property="og:url" content="http://lavard.cn/2021/04/10/Docker%E6%A6%82%E8%BF%B0/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="项目测试的时候需要用到某个端口进行预览，但经常遇到端口被占用的情况，而如何找出被占用端口的进程呢，下面就教一种方法。找出占用端口的进程Windowswindows 可以通过自带的 资源监视器 来查看。  点击左下角启动按钮，输入 resmon  点击 网络 标签，点击 侦听端口 栏 即可查看端口占用情况   也可以使用命令 netstat -ano|find &quot;:端口号&quot; |f">
+<meta property="og:description" content="Docker学习笔记个人理解：一个镜像可以启动多个容器，大概相等于类与实例的关系   镜像(Image)docker镜像就像是一个模板，可以通过这个模板来创建容器服务，TOMCATj镜像&#x3D;&#x3D;&#x3D;》run&#x3D;&#x3D;&#x3D;》tomcat01容器（提供服务器）通过这个镜像可以创建多个容器(最终服务运行或项目运行就是在容器中的)。 容器(container)docker利用容器技术，独立运行一个或者一个租应用。通过镜">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-04-09T03:53:44.159Z">
-<meta property="article:modified_time" content="2021-04-09T04:00:16.790Z">
+<meta property="article:published_time" content="2021-04-10T03:48:07.000Z">
+<meta property="article:modified_time" content="2021-04-11T06:45:39.323Z">
 <meta property="article:author" content="lavard">
+<meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -154,43 +155,150 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-找出被占用端口的应用" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Docker概述" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Docker学习笔记
+    </h1>
+  
+
+        
+        <a href="/2021/04/10/Docker%E6%A6%82%E8%BF%B0/" class="archive-article-date">
+  	<time datetime="2021-04-10T03:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-10</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="项目测试的时候需要用到某个端口进行预览，但经常遇到端口被占用的情况，而如何找出被占用端口的进程呢，下面就教一种方法。"><a href="#项目测试的时候需要用到某个端口进行预览，但经常遇到端口被占用的情况，而如何找出被占用端口的进程呢，下面就教一种方法。" class="headerlink" title="项目测试的时候需要用到某个端口进行预览，但经常遇到端口被占用的情况，而如何找出被占用端口的进程呢，下面就教一种方法。"></a>项目测试的时候需要用到某个端口进行预览，但经常遇到端口被占用的情况，而如何找出被占用端口的进程呢，下面就教一种方法。</h2><h1 id="找出占用端口的进程"><a href="#找出占用端口的进程" class="headerlink" title="找出占用端口的进程"></a>找出占用端口的进程</h1><h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><p>windows 可以通过自带的 <code>资源监视器</code> 来查看。</p>
+        <h1 id="Docker学习笔记"><a href="#Docker学习笔记" class="headerlink" title="Docker学习笔记"></a>Docker学习笔记</h1><p>个人理解：一个镜像可以启动多个容器，大概相等于类与实例的关系  </p>
+<h2 id="镜像-Image"><a href="#镜像-Image" class="headerlink" title="镜像(Image)"></a>镜像(Image)</h2><p>docker镜像就像是一个模板，可以通过这个模板来创建容器服务，TOMCATj镜像===》run===》tomcat01容器（提供服务器）通过这个镜像可以创建多个容器(最终服务运行或项目运行就是在容器中的)。</p>
+<h2 id="容器-container"><a href="#容器-container" class="headerlink" title="容器(container)"></a>容器(container)</h2><p>docker利用容器技术，独立运行一个或者一个租应用。通过镜像来创建的。</p>
+<p>启动，停止，删除，基本命令！</p>
+<p>可以将容器理解为简易的Linux系统</p>
+<h3 id="说明：我们有了镜像才可以创建容器，linux下载一个centos镜像来学习"><a href="#说明：我们有了镜像才可以创建容器，linux下载一个centos镜像来学习" class="headerlink" title="说明：我们有了镜像才可以创建容器，linux下载一个centos镜像来学习"></a>说明：我们有了镜像才可以创建容器，linux下载一个centos镜像来学习</h3><p>docker pull cenots</p>
+<h3 id="新建容器并启动容器"><a href="#新建容器并启动容器" class="headerlink" title="新建容器并启动容器"></a>新建容器并启动容器</h3><p>docker run [可选参数] image</p>
+<p>#参数说明</p>
+<p>–name=’Name’  容器名词 tomcat01</p>
+<p>-d                          后台方式运行</p>
+<p>-it                         使用交互方式进行，进入容器查看内容</p>
+<p>-p                         指定容器的端口 -p</p>
+<p>​        -p  ip:主机端口：容器端口</p>
+<p>​        -p  主机端口：容器端口</p>
+<p>​        -p   容器端口</p>
+<p>-p                          随机指定端口</p>
+<p>#测试，进入容器</p>
+<p>docker run -it cenots /bin/bash</p>
+<h3 id="列出所有的运行的容器"><a href="#列出所有的运行的容器" class="headerlink" title="列出所有的运行的容器"></a>列出所有的运行的容器</h3><p>docker ps命令</p>
+<h3 id="退出容器"><a href="#退出容器" class="headerlink" title="退出容器"></a>退出容器</h3><p>exit</p>
+<p>ctrl +p+q</p>
+<h3 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h3><p>docker  rm 容器id  #删除指定的容器，不能删除正在运行的容器</p>
+<p>docker  rm -f $(docker ps -aq) #强制删除容器 -f   -r递归删除</p>
+<h3 id="启动和停止容器的操作"><a href="#启动和停止容器的操作" class="headerlink" title="启动和停止容器的操作"></a>启动和停止容器的操作</h3><p>docker start 容器id </p>
+<p>docker restart 容器id </p>
+<p>docker stop 容器id</p>
+<p> docker kill 容器id</p>
+<h2 id="仓库-repository"><a href="#仓库-repository" class="headerlink" title="仓库(repository)"></a>仓库(repository)</h2><p>仓库就是存放镜像的地方</p>
+<p>仓库分公有和私有仓库</p>
+<p>Docker Hub （默认是国外的）</p>
+<p>国内阿里云华为云等都有容器服务器(配置镜像加速)</p>
 <ul>
-<li><p>点击左下角启动按钮，输入 <code>resmon</code></p>
+<li><p>Docker概述 (容器 镜像 仓库)</p>
+<p>产品：开发环境  —–上线环境  两套环境  应用环境 应用配置</p>
+<p>开发： 运维  问题：在我的电脑可以运行，你的电脑不可以运行</p>
+<p>或版本更新服务不可用，对运维来说考验非常大 </p>
+<p>环境配置十分麻烦，每一个机器都要部署(集群 Redis ,ES,Hadoop)</p>
+<p>发布一个项目 jar +（Redis Mysql jdk ES）,带上环境安装打包发布</p>
+<p>运维开发都要干</p>
 </li>
-<li><p>点击 <code>网络</code> 标签，点击 <code>侦听端口</code> 栏</p>
-<p>即可查看端口占用情况</p>
+<li><h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><ol>
+<li><p>/uname -v</p>
+</li>
+<li><p>需要的安装包</p>
+<p>yum install -y yum-utils</p>
+</li>
+<li><p>设置镜像仓库</p>
+<p>yum-config-manger \</p>
+<p>–add-eepo \</p>
+<p> yum-config-manager –add-repo <a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo">http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a></p>
+</li>
+<li><p>更新yum软件包索引</p>
+<p>sudo yum makecache fast</p>
+</li>
+<li><p>安装docker docker-ce 社区  ee企业版</p>
+<p> yum install docker-ce docker-ce-cli containerd.io</p>
+</li>
+<li><p>启动docker</p>
+<p>systemctl start docker</p>
+<p>sudo service docker start</p>
+</li>
+<li><p>测试</p>
+<p>docker run hello-world</p>
+<p>docker images(docker镜像   查看这个镜像)</p>
+</li>
+<li><p>卸载docker</p>
+<p>yum remove docker-ce docker-ce-cli containerd.io</p>
+<p>rm -rf /var/lib/docker </p>
+<p>/var/lib/docker  docker的默认工作路径</p>
+</li>
+</ol>
+<p>阿里云镜像加速  容器镜像服务(本人使用华为云)</p>
 </li>
 </ul>
-<p>也可以使用命令 <code>netstat -ano|find &quot;:端口号&quot; |find &quot;LISTEN&quot;</code></p>
-<p>比如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c:\&gt;netstat -ano|find &quot;:80&quot; |find &quot;LISTEN&quot;</span><br><span class="line">  TCP    127.0.0.1:80           0.0.0.0:0              LISTENING       616</span><br></pre></td></tr></table></figure>
-
-<p>最后的 616 就是占用 80 端口号 的进程ID</p>
-<p>也可以使用 power shell 命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-Process -Id (Get-NetTCPConnection -LocalPort 端口号).OwningProcess</span><br></pre></td></tr></table></figure>
-
-<p>比如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS C:\&gt; Get-Process -Id (Get-NetTCPConnection -LocalPort 80).OwningProcess</span><br><span class="line"></span><br><span class="line">Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName</span><br><span class="line">-------  ------    -----      -----     ------     --  -- -----------</span><br><span class="line">    225      22    18528      26652       0.83    616   3 python</span><br></pre></td></tr></table></figure>
-
-<p>Id 那列对应的就是占用端口的 进程ID</p>
-<p>Windows上 根据 <code>进程ID</code> 杀死进程，可以使用如下命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskkill &#x2F;F &#x2F;PID 616</span><br></pre></td></tr></table></figure>
-
-
-
-<p>Windows上 根据 <code>进程名</code> 杀死进程，可以使用如下命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskkill &#x2F;F &#x2F;IM hugo.exe</span><br></pre></td></tr></table></figure>
-
-<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>Linux检查 大家应该比较熟悉 使用 如下命令即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># netstat -anp|grep &quot;:80 &quot; |grep LISTEN</span><br><span class="line">tcp     0      0 0.0.0.0:80        0.0.0.0:*      LISTEN      17785&#x2F;nginx: worker</span><br></pre></td></tr></table></figure>
-
-<p>上例中， 17785就是占用端口的进程ID</p>
+<ul>
+<li><h1 id="Docker集群"><a href="#Docker集群" class="headerlink" title="Docker集群"></a>Docker集群</h1></li>
+<li><h1 id="Docker命令"><a href="#Docker命令" class="headerlink" title="Docker命令"></a>Docker命令</h1><h2 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h2><p>docker version        # 查看版本信息命令</p>
+<p>docker info             # 显示docker的系统信息包括镜像和容器的数量</p>
+<p>docker 命令 –help # 万能命令</p>
+<p>官网帮助文档的地址:<a target="_blank" rel="noopener" href="https://docs.docker.com/reference/">https://docs.docker.com/reference/</a></p>
+</li>
+<li><ul>
+<li><p>镜像命令</p>
+<p>docker images 查看本地所有镜像</p>
+<p>参数(-a 显示所有-f 过滤器 -q 只显示ID ）</p>
+<p>docker search </p>
+<p>参数(–filter stars=3000)</p>
+<p>docker pull 下载最新 镜像名[:tag] 不写tag 默认最新</p>
+<p>其他命令  -d 后台启动</p>
+<p>docker top</p>
+<p>docker ps</p>
+<p>docker inspect 查看</p>
+<h3 id="进入当前正在运行的容器"><a href="#进入当前正在运行的容器" class="headerlink" title="进入当前正在运行的容器"></a>进入当前正在运行的容器</h3><p>docker exec -it 容器ID (交互模式)</p>
+<p>docker attach -it 容器ID</p>
+</li>
+<li><p>容器命令</p>
+</li>
+<li><p>操作命令</p>
+<h3 id="从容器内拷贝文件到主机上"><a href="#从容器内拷贝文件到主机上" class="headerlink" title="从容器内拷贝文件到主机上"></a>从容器内拷贝文件到主机上</h3><p>docker cp 容器id </p>
+</li>
+</ul>
+</li>
+<li><h1 id="DOCKER安装nginx-tomcat-ES"><a href="#DOCKER安装nginx-tomcat-ES" class="headerlink" title="DOCKER安装nginx tomcat ES"></a>DOCKER安装nginx tomcat ES</h1><h1 id="elasticsearch-kibana"><a href="#elasticsearch-kibana" class="headerlink" title="(elasticsearch )+kibana"></a>(elasticsearch )+kibana</h1><p> docker安装tomcat</p>
+<p>docker run -it  –rm tomcat:9.0(官方使用 测试用，用完即删)</p>
+<p>#后台启动，停止容器了之后，容器还是可以查到， 加了rm之后用完就删除</p>
+<p>#下载再启动</p>
+<p>docker pull tomcat</p>
+<p>#启动运行</p>
+<p>docker run -d -p 3355:8080 –name tomcat01 tomcat</p>
+<p>#测试访问没有问题</p>
+<p>#进入容器</p>
+<p>#docker exec -it tomcat01 /bin/bash</p>
+<p>#发现问题1.linux命令少了 2.没有webapps 阿里云镜像的原因默认是最小的镜像，所有不必要的都剔除掉</p>
+<p>保证最小可运行的环境</p>
+</li>
+<li><h1 id="Docker-File"><a href="#Docker-File" class="headerlink" title="Docker File"></a>Docker File</h1></li>
+<li><h1 id="容器数据卷"><a href="#容器数据卷" class="headerlink" title="容器数据卷"></a>容器数据卷</h1></li>
+<li></li>
+<li><h1 id="IDEA整合Docker"><a href="#IDEA整合Docker" class="headerlink" title="IDEA整合Docker"></a>IDEA整合Docker</h1></li>
+<li><h1 id="Docker网络原理"><a href="#Docker网络原理" class="headerlink" title="Docker网络原理"></a>Docker网络原理</h1></li>
+<li><h1 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h1></li>
+<li><h1 id="Docker-Swarm"><a href="#Docker-Swarm" class="headerlink" title="Docker Swarm"></a>Docker Swarm</h1></li>
+<li><h1 id="CI-CD-Jenkins"><a href="#CI-CD-Jenkins" class="headerlink" title="CI\CD Jenkins"></a>CI\CD Jenkins</h1></li>
+</ul>
 
       
 
@@ -230,6 +338,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -280,7 +399,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://lavard.cn/2021/04/09/%E6%89%BE%E5%87%BA%E8%A2%AB%E5%8D%A0%E7%94%A8%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%BA%94%E7%94%A8/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://lavard.cn/2021/04/10/Docker%E6%A6%82%E8%BF%B0/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -293,6 +412,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2021/04/11/Docker%E9%9D%A2%E8%AF%95%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Docker面试题
+        
+      </div>
+    </a>
   
   
     <a href="/2021/04/09/%E5%89%8D%E7%AB%AF%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99/" id="article-nav-older" class="article-nav-link-wrap">
@@ -425,6 +553,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Typora、Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Linux,centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux,运维命令</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">云服务器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">进程</a>
               </li>
             
             <div class="clearfix"></div>

@@ -152,6 +152,102 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-前端复习资料" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/%E5%89%8D%E7%AB%AF%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99/">前端复习资料</a>
+    </h1>
+  
+
+        
+        
+
+<a href="/2021/02/21/%E5%89%8D%E7%AB%AF%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99/" class="archive-article-date">
+  	<time datetime="2021-02-21T12:13:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前端复习资料"><a href="#前端复习资料" class="headerlink" title="前端复习资料"></a>前端复习资料</h1><p>1.从浏览器地址栏输入url到显示页面的步骤</p>
+<p>浏览器根据请求的URL交给DNS域名解析，找到真实IP，向服务器发起http请求；<br>服务器交给后台处理完成后返回数据，浏览器接收文件（HTML、JS、CSS、图象等）；<br>浏览器对加载到的资源（HTML、JS、CSS等）进行语法解析，建立相应的内部数据结构（如HTML的DOM）；<br>载入解析到的资源文件，渲染页面，完成。?</p>
+<p>2.margin和padding分别适合什么场景使用？</p>
+<p>margin是用来隔开元素与元素的间距；<br>需要在border外侧添加空白<br>空白处不需要背景色<br>上下相连的两个盒子之间的空白，需要相互抵消时。</p>
+<p>padding是用来隔开元素与内容的间隔。<br>需要在border内侧添加空白<br>空白处需要背景颜色<br>上下相连的两个盒子的空白，希望为两者之和。</p>
+<p>3.请描述一下cookies，sessionStorage和 localStorage的区别？<br>cookie是网站为了标示用户身份而储存在用户本地终端上的数据；cookie数据始终在同源的http请求中携带（即使不需要），也会在浏览器和服务器间来回传递。<br>sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存；<br>存储大小：<br>cookie数据大小不能超过4k sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大。<br>有效时间：<br>localStorage存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；<br>sessionStorage数据在当前浏览器窗口关闭后自动删除；<br>cookie设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭</p>
+<p>4、position有哪些值？有什么作用？<br>static。默认值，不脱离文档流，top，right，bottom，left等属性不生效。<br>relative。不脱离文档流，依据自身位置进行偏离，当子元素设置absolute，将依据它进行偏离。<br>absolute。脱离文档流，依据top，right，bottom，left等属性在正常文档流中偏移位置。<br>fixed。通过浏览器窗口进行定位，出现滚动条的时候，不会随之滚动。</p>
+<p>5、简述div+css布局与表格布局相比的优点<br>1、TABLE表格布局。<br>优点：布局容易、快捷、兼容性好。<br>缺点：改动不便，需重新调整，工作量大。<br>2、DIV+CSS。<br>优点：布局灵活、改动方便。<br>缺点：需考虑平台的兼容性，对制作人员技能要求较高。</p>
+<p>6、水平居中的方法有哪些？<br>元素为行内元素，设置父元素text-align:center<br>如果元素宽度固定，可以设置左右margin为auto;<br>如果元素为绝对定位，设置父元素position为relative，元素设left:0;right:0;margin:auto;<br>使用flex-box布局，指定justify-content属性为center<br>display设置为tabel-ceil</p>
+<p>7、CSS优先级算法如何计算？<br>优先级就近原则，同权重情况下样式定义最近者为准<br>载入样式以最后载入的定位为准<br>优先级为: !important &gt; id &gt; class &gt; tag;</p>
+<p>8、HTML全局属性(global attribute)有哪些？<br>class:为元素设置类标识<br>data-*: 为元素增加自定义属性<br>draggable: 设置元素是否可拖拽<br>id: 元素id，文档内唯一<br>lang: 元素内容的的语言<br>style: 行内css样式<br>title: 鼠标在上方时提示信息</p>
+<p>9、垂直居中有哪些方法？<br>单行文本的话可以使用height和line-height设置同一高度。<br>position+margin：设置父元素:position: relative;，子元素height: 100px;position:absolute;top: 50%; margin: -50px 0 0 0;（定高）<br>position+transform：设置父元素position:relative,子元素：position: absolute;top: 50%;transform: translate(0, -50%);（不定高）<br>百搭flex布局(ie10+)，设置父元素display:flex;align-items: center;（不定高）</p>
+<p>10、盒子模型有哪些？它们的区别是什么？<br>盒模型分为两类: IE盒模型和标准盒模型。 两者的区别在于:<br>IE盒模型的width/height = content + border + padding<br>标准盒模型的width/height = content</p>
+<p>11、单页面应用和多页面应用区别及优缺点<br>答：单页面应用（SPA），通俗一点说就是指只有一个主页面的应用，浏览器一开始要加载所有必须的 html, js, css。所有的页面内容都包含在这个所谓的主页面中。但在写的时候，还是会分开写（页面片段），然后在交互的时候由路由程序动态载入，单页面的页面跳转，仅刷新局部资源。多应用于pc端。<br>多页面（MPA），就是指一个应用中有多个页面，页面跳转时是整页刷新<br>单页面的优点：<br>用户体验好，快，内容的改变不需要重新加载整个页面，基于这一点spa对服务器压力较小；前后端分离；页面效果会比较炫酷（比如切换页面内容时的专场动画）。<br>单页面缺点：<br>不利于seo；导航不可用，如果一定要导航需要自行实现前进、后退。（由于是单页面不能用浏览器的前进后退功能，所以需要自己建立堆栈管理）；初次加载时耗时多；页面复杂度提高很多。</p>
+<p>12、v-if 和 v-show 有什么区别？<br>v-show 仅仅控制元素的显示方式，将 display 属性在 block 和 none 来回切换；而v-if会控制这个 DOM 节点的存在与否。<br>当我们需要经常切换某个元素的显示/隐藏时，使用v-show会更加节省性能上的开销；当只需要一次显示或隐藏时，使用v-if更加合理。</p>
+<p>13、什么是js的冒泡？Vue中如何阻止冒泡事件？<br>js冒泡概念：当父元素内多级子元素绑定了同一个事件，js会依次从内往外或者从外往内执行每个元素的该事件，从而引发冒泡。<br>?js解决冒泡：event.stopPropagation()<br>vue解决冒泡： 事件.stop,例如：@click.stop=”” ,@mouseover.stop=””</p>
+<p>14、Vue组件间通信的技术有哪些？<br>1.父组件与子组件传值<br>父组件传给子组件：子组件通过props方法接受数据;<br>子组件传给父组件：$emit方法传递参数</p>
+<p>2.非父子组件间的数据传递，兄弟组件传值<br>eventBus，就是创建一个事件中心，相当于中转站，可以用它来传递事件和接收事件。也可使用vuex</p>
+<p>15、简述制作一个网页的工作流程<br>内容分析：分清展现在网络中内容的层次和逻辑关系<br>结构设计：写出合理的html结构代码<br>布局设计：使用html+css进行布局<br>样式设计：首先要使用reset.css<br>交互设计：鼠标特效<br>行为设计：js代码，ajax页面行为和从服务器获取数据<br>测试兼容性；优化性能。</p>
+<p>16．减少页面加载时间的方法有哪些？<br>1.减少HTTP请求；<br>2.合并压缩Js/css文件；<br>3.使用缓存manifest；<br>4.服务器端开启gzip；<br>5.使用CDN，用户可以就近获取所需要的资源，访问速度有保障，稳定性也有保障<br>6.外部JS和CSS放底下<br>7.尽可能少的操作DOM，某些需要重复操作的DOM可以放变量里</p>
+<p>减少http请求  合并压缩CSS JS文件  服务器端开启GZIP 使用CDN</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/%E5%89%8D%E7%AB%AF%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-基于华为云服务器搭建方舟私服教程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

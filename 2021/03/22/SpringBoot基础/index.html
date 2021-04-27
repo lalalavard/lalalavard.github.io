@@ -5,42 +5,42 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://lavard.cn">
+  <link rel="dns-prefetch" href="https://www.lavard.cn">
   <title>SpringBoot基础 | 来自拉夫德鲁的码农</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="SpringBoot基础学习目标： 能够理解Spring的优缺点 能够理解SpringBoot的特点 能够理解SpringBoot的核心功能 能够搭建SpringBoot的环境 能够完成application.properties配置文件的配置 能够完成application.yml配置文件的配置 能够使用SpringBoot集成Mybatis 能够使用SpringBoot集成Junit 能够使用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringBoot基础">
-<meta property="og:url" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:url" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="来自拉夫德鲁的码农">
 <meta property="og:description" content="SpringBoot基础学习目标： 能够理解Spring的优缺点 能够理解SpringBoot的特点 能够理解SpringBoot的核心功能 能够搭建SpringBoot的环境 能够完成application.properties配置文件的配置 能够完成application.yml配置文件的配置 能够使用SpringBoot集成Mybatis 能够使用SpringBoot集成Junit 能够使用">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C1.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C2.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C3.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C4.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C5.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C19.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C20.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C6.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C7.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C8.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C9.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C10.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C11.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C12.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C13.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C13.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C14.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C15.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C16.png">
-<meta property="og:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C17.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C1.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C2.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C3.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C4.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C5.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C19.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C20.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C6.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C7.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C8.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C9.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C10.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C11.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C12.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C13.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C13.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C14.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C15.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C16.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C17.png">
 <meta property="article:published_time" content="2021-03-22T07:38:51.000Z">
 <meta property="article:modified_time" content="2021-04-13T02:54:47.244Z">
 <meta property="article:author" content="lavard">
 <meta property="article:tag" content="SpringBoot">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C1.png">
+<meta name="twitter:image" content="https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/img%5C1.png">
   
     <link rel="alternative" href="/atom.xml" title="来自拉夫德鲁的码农" type="application/atom+xml">
   
@@ -566,7 +566,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://www.lavard.cn/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/" alt="微信分享二维码">
     </div>
 </div>
 

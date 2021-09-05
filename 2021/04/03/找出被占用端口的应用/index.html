@@ -16,7 +16,7 @@
 <meta property="og:description" content="找出占用端口的进程项目测试的时候需要用到某个端口进行预览，但经常遇到端口被占用的情况，而如何找出被占用端口的进程呢，下面就教一种方法。 Windowswindows 可以通过自带的 资源监视器 来查看。  点击左下角启动按钮，输入 resmon  点击 网络 标签，点击 侦听端口 栏 即可查看端口占用情况   也可以使用命令 netstat -ano|find &quot;:端口号&quot; |">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-04-03T11:48:07.000Z">
-<meta property="article:modified_time" content="2021-04-11T07:03:44.016Z">
+<meta property="article:modified_time" content="2021-09-05T05:48:51.081Z">
 <meta property="article:author" content="lavard">
 <meta property="article:tag" content="进程">
 <meta name="twitter:card" content="summary">
@@ -168,14 +168,7 @@
   
 
         
-        
-        <!-- 不蒜子统计 -->
-        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
-              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
-        </span>
-
-
-<a href="/2021/04/03/%E6%89%BE%E5%87%BA%E8%A2%AB%E5%8D%A0%E7%94%A8%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%BA%94%E7%94%A8/" class="archive-article-date">
+        <a href="/2021/04/03/%E6%89%BE%E5%87%BA%E8%A2%AB%E5%8D%A0%E7%94%A8%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%BA%94%E7%94%A8/" class="archive-article-date">
   	<time datetime="2021-04-03T11:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-03</time>
 </a>
         
@@ -183,7 +176,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="找出占用端口的进程"><a href="#找出占用端口的进程" class="headerlink" title="找出占用端口的进程"></a>找出占用端口的进程</h1><p>项目测试的时候需要用到某个端口进行预览，但经常遇到端口被占用的情况，而如何找出被占用端口的进程呢，下面就教一种方法。</p>
+        <h1 id="找出占用端口的进程"><a href="#找出占用端口的进程" class="headerlink" title="找出占用端口的进程"></a>找出占用端口的进程</h1><p><strong>项目测试的时候需要用到某个端口进行预览，但经常遇到端口被占用的情况，而如何找出被占用端口的进程呢，下面就教一种方法。</strong></p>
 <h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><p>windows 可以通过自带的 <code>资源监视器</code> 来查看。</p>
 <ul>
 <li><p>点击左下角启动按钮，输入 <code>resmon</code></p>
@@ -206,8 +199,6 @@
 <p>Id 那列对应的就是占用端口的 进程ID</p>
 <p>Windows上 根据 <code>进程ID</code> 杀死进程，可以使用如下命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskkill &#x2F;F &#x2F;PID 616</span><br></pre></td></tr></table></figure>
-
-
 
 <p>Windows上 根据 <code>进程名</code> 杀死进程，可以使用如下命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskkill &#x2F;F &#x2F;IM hugo.exe</span><br></pre></td></tr></table></figure>
@@ -330,7 +321,7 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/04/10/Docker%E6%A6%82%E8%BF%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/04/10/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
@@ -340,7 +331,7 @@
     </a>
   
   
-    <a href="/2021/03/26/linux%E8%BF%90%E7%BB%B4%E5%91%BD%E4%BB%A4/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/03/26/linux%E5%91%BD%E4%BB%A4%E5%92%8Cdocker/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">linux运维命令</div>
       <i class="icon-circle-right"></i>
     </a>
@@ -392,18 +383,8 @@
       	</div>
     </div>
   </div>
-
-        <!-- 不蒜子统计 -->
-        <span id="busuanzi_container_site_pv">
-                本站总访问量<span id="busuanzi_value_site_pv"></span>次
-        </span>
-        <span class="post-meta-divider">|</span>
-        <span id="busuanzi_container_site_uv" style='display:none'>
-                本站访客数<span id="busuanzi_value_site_uv"></span>人
-        </span>
-        <script async src="/busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  
 </footer>
+
 
 
     </div>
@@ -493,6 +474,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VSCODE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux,centos</a>
               </li>
              
@@ -501,7 +486,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vscode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VSCODE插件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">web复习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -517,7 +510,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
+                <a href="javascript:void(0)" class="js-tag color4">CDN</a>
               </li>
             
             <div class="clearfix"></div>
@@ -674,5 +667,5 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 
 </div>
   </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-waifu"},"display":{"position":"right","width":250,"height":400},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
 </html>

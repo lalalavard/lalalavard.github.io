@@ -155,6 +155,495 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-找出被占用端口的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/04/03/%E6%89%BE%E5%87%BA%E8%A2%AB%E5%8D%A0%E7%94%A8%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%BA%94%E7%94%A8/">找出占用端口的进程</a>
+    </h1>
+  
+
+        
+        <a href="/2021/04/03/%E6%89%BE%E5%87%BA%E8%A2%AB%E5%8D%A0%E7%94%A8%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%BA%94%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2021-04-03T11:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="找出占用端口的进程"><a href="#找出占用端口的进程" class="headerlink" title="找出占用端口的进程"></a>找出占用端口的进程</h1><p><strong>项目测试的时候需要用到某个端口进行预览，但经常遇到端口被占用的情况，而如何找出被占用端口的进程呢，下面就教一种方法。</strong></p>
+<h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><p>windows 可以通过自带的 <code>资源监视器</code> 来查看。</p>
+<ul>
+<li><p>点击左下角启动按钮，输入 <code>resmon</code></p>
+</li>
+<li><p>点击 <code>网络</code> 标签，点击 <code>侦听端口</code> 栏</p>
+<p>即可查看端口占用情况</p>
+</li>
+</ul>
+<p>也可以使用命令 <code>netstat -ano|find &quot;:端口号&quot; |find &quot;LISTEN&quot;</code></p>
+<p>比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c:\&gt;netstat -ano|find &quot;:80&quot; |find &quot;LISTEN&quot;</span><br><span class="line">  TCP    127.0.0.1:80           0.0.0.0:0              LISTENING       616</span><br></pre></td></tr></table></figure>
+
+<p>最后的 616 就是占用 80 端口号 的进程ID</p>
+<p>也可以使用 power shell 命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-Process -Id (Get-NetTCPConnection -LocalPort 端口号).OwningProcess</span><br></pre></td></tr></table></figure>
+
+<p>比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS C:\&gt; Get-Process -Id (Get-NetTCPConnection -LocalPort 80).OwningProcess</span><br><span class="line"></span><br><span class="line">Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName</span><br><span class="line">-------  ------    -----      -----     ------     --  -- -----------</span><br><span class="line">    225      22    18528      26652       0.83    616   3 python</span><br></pre></td></tr></table></figure>
+
+<p>Id 那列对应的就是占用端口的 进程ID</p>
+<p>Windows上 根据 <code>进程ID</code> 杀死进程，可以使用如下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskkill &#x2F;F &#x2F;PID 616</span><br></pre></td></tr></table></figure>
+
+<p>Windows上 根据 <code>进程名</code> 杀死进程，可以使用如下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskkill &#x2F;F &#x2F;IM hugo.exe</span><br></pre></td></tr></table></figure>
+
+<h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>Linux检查 大家应该比较熟悉 使用 如下命令即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># netstat -anp|grep &quot;:80 &quot; |grep LISTEN</span><br><span class="line">tcp     0      0 0.0.0.0:80        0.0.0.0:*      LISTEN      17785&#x2F;nginx: worker</span><br></pre></td></tr></table></figure>
+
+<p>上例中， 17785就是占用端口的进程ID</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">进程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/03/%E6%89%BE%E5%87%BA%E8%A2%AB%E5%8D%A0%E7%94%A8%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%BA%94%E7%94%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-linux命令和docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/26/linux%E5%91%BD%E4%BB%A4%E5%92%8Cdocker/">linux运维命令</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/26/linux%E5%91%BD%E4%BB%A4%E5%92%8Cdocker/" class="archive-article-date">
+  	<time datetime="2021-03-26T14:18:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="linux常用命令"><a href="#linux常用命令" class="headerlink" title="linux常用命令"></a>linux常用命令</h1><h4 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">ll  /ll -a #列出当前目录下的文件,包括权限</span><br><span class="line">ls    </span><br><span class="line"></span><br><span class="line">cd         #切换目录</span><br><span class="line"></span><br><span class="line">pwd 	#查看当前工作目录</span><br><span class="line"></span><br><span class="line">touch index.html #创建名为index.html文件</span><br><span class="line"></span><br><span class="line">echo &quot;hello world&quot; &gt; index.html #将内容追加到文件中</span><br><span class="line"></span><br><span class="line">cat index.html   #查看内容</span><br><span class="line"></span><br><span class="line">cp index.html index-copy.html  #复制</span><br><span class="line"></span><br><span class="line">mv index-copy.html index2.html  #对文件名称进行修改或者移动</span><br><span class="line"></span><br><span class="line">mkdir #创建目录</span><br><span class="line"></span><br><span class="line">rmdir  #删除空文件夹</span><br><span class="line"></span><br><span class="line">rm xxxx #删除xx文件      -r 递归删除 -f 强制删除</span><br><span class="line"></span><br><span class="line">sudo rm -rf /*  ##  删库跑路命令:</span><br><span class="line"></span><br><span class="line">find    #find -name &#x27;my*&#x27;  搜索当前目录（含子目录，以下同）中，所有文件名以my开头的文件。</span><br><span class="line"></span><br><span class="line">whereis  #查看文件的位置</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="解压缩命令"><a href="#解压缩命令" class="headerlink" title="解压缩命令"></a>解压缩命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">zip   #zip 压缩文件名 要压缩的文件</span><br><span class="line">zip web.zip a.html        #压缩单个文件</span><br><span class="line">zip web.zip a.html b.html #压缩多个文件</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">unzip #解压缩</span><br><span class="line">unzip -l web.zip  #显示压缩文件内所包含的文件</span><br><span class="line">unzip -d web web.zip  #指定文件解压缩后所要存储的目录</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">tar  #tar [参数] [压缩文件名] [要压缩的文件]</span><br><span class="line">tar -zcvf web.tar.gz a.html b.html   #压缩</span><br><span class="line">tar -zxvf web.tar.gz                 #解压</span><br></pre></td></tr></table></figure>
+<h4 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ip addr  #查看当前的网卡</span><br><span class="line"></span><br><span class="line">ifconfig (不是win下的ipconfig) ## 查看IP地址 :</span><br><span class="line"></span><br><span class="line">ip link #比较新鲜的 </span><br><span class="line"></span><br><span class="line">netstar/ss  #查看网络连接数</span><br><span class="line"></span><br><span class="line">ping /hping3 #查看网络延迟</span><br><span class="line"></span><br><span class="line">route/ traceroute #路由，查询路由表</span><br><span class="line"></span><br><span class="line">dig / nslookup  #查看DNS解析</span><br><span class="line"></span><br><span class="line">iptables       #排查防火墙</span><br><span class="line"></span><br><span class="line">tcpdump  /Wireshark #网络抓包</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="进程和系统"><a href="#进程和系统" class="headerlink" title="进程和系统"></a>进程和系统</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ps     #查看进程信息</span><br><span class="line"></span><br><span class="line">df -lh    ## 查看磁盘信息:</span><br><span class="line"></span><br><span class="line">free 或free -m  ##  查看内存信息: </span><br><span class="line"></span><br><span class="line">mpstat -P ALL 1 5   ##  查看cpu占用情况:</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#  (5秒内每隔一秒打印一次CPU占用信息)</span></span></span><br><span class="line"></span><br><span class="line">netstat -help  ## 查看端口</span><br><span class="line"></span><br><span class="line">netstat -oan   #所有端口占用情况</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 查看进程  （按内存占用从大到小）</span></span></span><br><span class="line">PS-e  -o &quot;%C  : %p : %z : %a&quot;|sort -k5 -nr</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># (按cpu利用率从大到小排列)</span></span></span><br><span class="line">ps-e  -o &quot;%C  : %p : %z : %a&quot;|sort  -nr</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="权限和用户组"><a href="#权限和用户组" class="headerlink" title="权限和用户组"></a>权限和用户组</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">chmod    #改变文件或目录的权限  r:4  w:2  x:1  读4写2可执行1  777为最高权限</span><br><span class="line"></span><br><span class="line">chmod 777 .bashrc    # 开放文件所有权限</span><br><span class="line"></span><br><span class="line">chmod a-x .bashrc    # 去掉全部人的可执行权限</span><br><span class="line"></span><br><span class="line">chgrp    #改变群组   chgrp [-R]  用户名 文件名</span><br><span class="line">chown   #改变文件拥有者</span><br><span class="line"></span><br><span class="line">useradd test  	 #添加一个名称为 test 用户</span><br><span class="line">passwd test   	 #给刚创建用户 test 设置密码</span><br><span class="line">userdel test  	 #删除 test 用户</span><br><span class="line"> userdel –r test  #连用户的主目录一起删除</span><br><span class="line"> </span><br><span class="line">groupadd group1 	#增加名称为group1的群组</span><br><span class="line">groupdel group1    #删除 group1 群组</span><br><span class="line">gpasswd –A test group1    #将test用户设置为group1群组管理员</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">查看当前登入的用户</span></span><br><span class="line"> w  或者 who</span><br><span class="line"> whoami #查看当前用户</span><br><span class="line"><span class="meta">#</span><span class="bash">查看用户登入信息</span></span><br><span class="line"> last /lastlog</span><br><span class="line"><span class="meta">#</span><span class="bash">切换用户</span></span><br><span class="line">su –l test    #从 root 用户 切换成 test 用户</span><br></pre></td></tr></table></figure>
+
+<h2 id="docker安装命令-使用镜像加速"><a href="#docker安装命令-使用镜像加速" class="headerlink" title="docker安装命令 使用镜像加速"></a>docker安装命令 使用镜像加速</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">yum update #更新yum</span><br><span class="line"></span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"></span><br><span class="line">yum makecache (如果为centos-8 改为centos-8)</span><br><span class="line"></span><br><span class="line">yum install docker -y  #安装docker  默认-y直接确认 yes</span><br><span class="line"></span><br><span class="line">systemctl start docker #启动docker</span><br><span class="line"></span><br><span class="line">systemctl enable docker #开机启动docker</span><br><span class="line"></span><br><span class="line">systemctl status docker #查看docker状态</span><br><span class="line"></span><br><span class="line">docker service start  #启动docker服务 </span><br><span class="line">docker run xxxx   #运行XX镜像</span><br><span class="line">docker search xxx  #查找xx镜像</span><br><span class="line">docker pull        #拉取xx镜像</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="linux目录结构和文件类型"><a href="#linux目录结构和文件类型" class="headerlink" title="linux目录结构和文件类型"></a>linux目录结构和文件类型</h1><p>上面的是Linux下的目录结构图，要知道这些目录有嘛用才能玩linux呀</p>
+<p><strong>/bin：</strong><br><strong>bin是Binary的缩写, 这个目录存放着最经常使用的命令。</strong></p>
+<p><strong>/boot：</strong><br><strong>这里存放的是启动Linux时使用的一些核心文件，包括一些连接文件以及镜像文件。</strong></p>
+<p><strong>/dev ：</strong><br><strong>dev是Device(设备)的缩写, 该目录下存放的是Linux的外部设备，在Linux中访问设备的方式和访问文件的方式是相同的。</strong></p>
+<p><strong>/etc：</strong><br><strong>这个目录用来存放所有的系统管理所需要的配置文件和子目录。</strong></p>
+<p><strong>/home：</strong><br><strong>用户的主目录，在Linux中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的。</strong></p>
+<p><strong>/lib：</strong><br><strong>这个目录里存放着系统最基本的动态连接共享库，其作用类似于Windows里的DLL文件。几乎所有的应用程序都需要用到这些共享库。</strong></p>
+<p><strong>/lost+found：</strong><br><strong>这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。</strong></p>
+<p><strong>/media：</strong><br><strong>linux系统会自动识别一些设备，例如U盘、光驱等等，当识别后，linux会把识别的设备挂载到这个目录下。</strong></p>
+<p><strong>/mnt：</strong><br><strong>系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在/mnt/上，然后进入该目录就可以查看光驱里的内容了。</strong></p>
+<p><strong>/opt：</strong><br> <strong>这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。</strong></p>
+<p><strong>/proc：</strong><br><strong>这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。</strong><br><strong>这个目录的内容不在硬盘上而是在内存里，我们也可以直接修改里面的某些文件，比如可以通过下面的命令来屏蔽主机的ping命令，使别人无法ping你的机器：</strong></p>
+<p><strong>echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all</strong><br><strong>/root：</strong><br><strong>该目录为系统管理员，也称作超级权限者的用户主目录。</strong></p>
+<p><strong>/sbin：</strong><br><strong>s就是Super User的意思，这里存放的是系统管理员使用的系统管理程序。</strong></p>
+<p><strong>/selinux：</strong><br> <strong>这个目录是Redhat/CentOS所特有的目录，Selinux是一个安全机制，类似于windows的防火墙，但是这套机制比较复杂，这个目录就是存放selinux相关的文件的。</strong></p>
+<p><strong>/srv：</strong><br> <strong>该目录存放一些服务启动之后需要提取的数据。</strong></p>
+<p><strong>/sys：</strong></p>
+<p> <strong>这是linux2.6内核的一个很大的变化。该目录下安装了2.6内核中新出现的一个文件系统 sysfs 。</strong></p>
+<p><strong>sysfs文件系统集成了下面3种文件系统的信息：针对进程信息的proc文件系统、针对设备的devfs文件系统以及针对伪终端的devpts文件系统。</strong></p>
+<p><strong>该文件系统是内核设备树的一个直观反映。</strong></p>
+<p><strong>当一个内核对象被创建的时候，对应的文件和目录也在内核对象子系统中被创建。</strong></p>
+<p><strong>/tmp：</strong><br><strong>这个目录是用来存放一些临时文件的。</strong></p>
+<p><strong>/usr：</strong><br> <strong>这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于windows下的program files目录。</strong></p>
+<p><strong>/usr/bin：</strong><br><strong>系统用户使用的应用程序。</strong></p>
+<p><strong>/usr/sbin：</strong><br><strong>超级用户使用的比较高级的管理程序和系统守护程序。</strong></p>
+<p><strong>/usr/src：</strong><br><strong>内核源代码默认的放置目录。</strong></p>
+<p><strong>/var：</strong><br><strong>这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。</strong></p>
+<p><strong>/run：</strong><br><strong>是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。如果你的系统上有 /var/run 目录，应该让它指向 run</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux,运维命令</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/26/linux%E5%91%BD%E4%BB%A4%E5%92%8Cdocker/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-centos安装tomcat+jdk+mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/16/centos%E5%AE%89%E8%A3%85tomcat+jdk+mysql/">centos安装tomcat+jdk+mysql</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/16/centos%E5%AE%89%E8%A3%85tomcat+jdk+mysql/" class="archive-article-date">
+  	<time datetime="2021-03-16T14:18:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>centos为我们常用的服务器镜像，熟悉基本环境配置</strong></p>
+<p><strong>选用了最常见的 jdk+mysql+tomcat   (spring boot +spring cloud)</strong></p>
+<p><strong>可选 php + nginx/tomcat + mysql    (lavarel)</strong></p>
+<h1 id="JDK安装"><a href="#JDK安装" class="headerlink" title="JDK安装"></a>JDK安装</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1 用securefxp传输jdk到/home</span><br><span class="line">2 cd /home</span><br><span class="line">3 cp jdk-8u181-linux-x64.tar.gz /usr/local/</span><br><span class="line">4 cd /usr/local</span><br><span class="line">5 tar xvfz jdk-8u181-linux-x64.tar.gz</span><br><span class="line">6 mv jdk1.8.0_181/ jdk1.8</span><br><span class="line">7 修改环境变量</span><br><span class="line">vi /etc/profile</span><br><span class="line">在末尾添加：</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">set</span> javaenvironment</span></span><br><span class="line">export JAVA_HOME=/usr/local/jdk1.8</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br><span class="line"></span><br><span class="line">8让配置生效</span><br><span class="line">source /etc/profile</span><br><span class="line">9 验证</span><br><span class="line">java -version</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Mysql安装"><a href="#Mysql安装" class="headerlink" title="Mysql安装"></a>Mysql安装</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">https://blog.csdn.net/qq_20258573/article/details/91795867</span><br><span class="line"></span><br><span class="line">1 更新源</span><br><span class="line">wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm</span><br><span class="line"></span><br><span class="line">2</span><br><span class="line">yum localinstall mysql57-community-release-el7-8.noarch.rpm </span><br><span class="line"></span><br><span class="line">3 安装MySQL</span><br><span class="line">yum install mysql-community-server</span><br><span class="line"></span><br><span class="line">6.启动MySQL服务</span><br><span class="line"></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> systemctl start mysqld</span></span><br><span class="line"></span><br><span class="line">7.开机启动</span><br><span class="line"></span><br><span class="line">systemctl enable mysqld</span><br><span class="line"></span><br><span class="line">systemctl daemon-reload</span><br><span class="line"></span><br><span class="line">8.修改root本地登录密码</span><br><span class="line"></span><br><span class="line"> 1）查看mysql密码</span><br><span class="line"></span><br><span class="line">grep &quot;temporary password&quot; /var/log/mysqld.log</span><br><span class="line"></span><br><span class="line">2）连接mysql</span><br><span class="line"></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> mysql -u root -p</span></span><br><span class="line"></span><br><span class="line">3）修改密码[注意：后面的分号一定要跟上]</span><br><span class="line"></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> ALTER USER <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED BY <span class="string">&#x27;MyNewPass4!&#x27;</span>;</span></span><br><span class="line"></span><br><span class="line">或者：</span><br><span class="line"></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">set</span> password <span class="keyword">for</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>=password(<span class="string">&#x27;MyNewPass4!&#x27;</span>);</span> </span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Tomcat安装"><a href="#Tomcat安装" class="headerlink" title="Tomcat安装"></a>Tomcat安装</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">(1) 用secureFx传输文件到 /root</span><br><span class="line">(2) cd /usr/local/</span><br><span class="line">(3) cp /root/apache-tomcat-8.5.46.tar.gz .</span><br><span class="line">(4) tar xvfz apache-tomcat-8.5.46.tar.gz</span><br><span class="line">(5)systemctl stop firewalld.service    关闭防火墙</span><br><span class="line">firewall-cmd --state</span><br><span class="line">(6) cd apache-tomcat-8.5.46/bin</span><br><span class="line">(7) ./startup.sh   运行apache</span><br><span class="line">ps -ef | grep &quot;java&quot;</span><br><span class="line">netstat -an | grep &quot;8080&quot;</span><br><span class="line">用浏览器访问：  http://192.168.2.131:8080/</span><br><span class="line">(8)</span><br><span class="line">cd /usr/local/apache-tomcat-8.5.46/webapps/ROOT</span><br><span class="line">(9)</span><br><span class="line">vi hello.htm  拷贝下列内容到hello.htm</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt; welcome &lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">   hello world!</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br><span class="line">(10) 访问 http://xxxx/hello.htm</span><br><span class="line"></span><br><span class="line">(11) 新开ssh窗口</span><br><span class="line">(12) cd /usr/local/apache-tomcat-8.5.46/logs</span><br><span class="line">tail -f localhost_access_log.2019-09-27.txt</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Linux,centos</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/16/centos%E5%AE%89%E8%A3%85tomcat+jdk+mysql/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Typora快捷键" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/14/Typora%E5%BF%AB%E6%8D%B7%E9%94%AE/">Typora快捷键</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/14/Typora%E5%BF%AB%E6%8D%B7%E9%94%AE/" class="archive-article-date">
+  	<time datetime="2021-03-14T07:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Typora快捷键"><a href="#Typora快捷键" class="headerlink" title="Typora快捷键"></a>Typora快捷键</h1><p><strong>Typora是最热门的markdown编写软件，掌握Typora快捷键有利于写出更流利的Markdown文件</strong></p>
+<p><strong>下面介绍一下常用的快捷键</strong></p>
+<h2 id="菜单栏"><a href="#菜单栏" class="headerlink" title="菜单栏"></a>菜单栏</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- 文件：alt+F</span><br><span class="line">- 编辑：alt+E</span><br><span class="line">- 段落：alt+P</span><br><span class="line">- 格式：alt+O</span><br><span class="line">- 视图：alt+V</span><br><span class="line">- 主题：alt+T</span><br><span class="line">- 帮助：alt+H</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- 新建：Ctrl+N</span><br><span class="line">- 新建窗口：Ctrl+Shift+N</span><br><span class="line">- 打开：Ctrl+O</span><br><span class="line">- 快速打开：Ctrl+P</span><br><span class="line">- 保存：Ctrl+S</span><br><span class="line">- 另存为：Ctrl+Shift+S</span><br><span class="line">- 偏好：Ctrl+,</span><br><span class="line">- 关闭：Ctrl+W</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="编辑"><a href="#编辑" class="headerlink" title="编辑"></a>编辑</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- 撤销：Ctrl+Z</span><br><span class="line">- 重做：Ctrl+Y</span><br><span class="line">- 剪切：Ctrl+X</span><br><span class="line">- 复制：Ctrl+C</span><br><span class="line">- 粘贴：Ctrl+V</span><br><span class="line">- 复制为MarkDown：Ctrl+Shift+C</span><br><span class="line">- 粘贴为纯文本：Ctrl+Shift+V</span><br><span class="line">- 全选：Ctrl+A</span><br><span class="line">- 选中当前行/句：Ctrl+L</span><br><span class="line">- 选中当前格式文本：Ctrl+E</span><br><span class="line">- 选中当前词：Ctrl+D</span><br><span class="line">- 跳转到文首：Ctrl+Home</span><br><span class="line">- 跳转到所选内容：Ctrl+J</span><br><span class="line">- 跳转到文末：Ctrl+End</span><br><span class="line">- 查找：Ctrl+F</span><br><span class="line">- 查找下一个：F3</span><br><span class="line">- 查找上一个：Shift+F3</span><br><span class="line">- 替换：Ctrl+H</span><br></pre></td></tr></table></figure>
+<h2 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- 标题：Ctrl+<span class="number">1</span>/<span class="number">2</span>/<span class="number">3</span>/<span class="number">4</span>/<span class="number">5</span></span><br><span class="line">- 段落：Ctrl+<span class="number">0</span></span><br><span class="line">- 增大标题级别：Ctrl+=</span><br><span class="line">- 减少标题级别：Ctrl+-</span><br><span class="line">- 表格：Ctrl+T</span><br><span class="line">- 代码块：Ctrl+Shift+K</span><br><span class="line">- 公式块：Ctrl+Shift+M</span><br><span class="line">- 引用：Ctrl+Shift+Q</span><br><span class="line">- 有序列表：Ctrl+Shift+[</span><br><span class="line">- 无序列表：Ctrl+Shift+]</span><br><span class="line">- 增加缩进：Ctrl+]</span><br><span class="line">- 减少缩进：Ctrl+[</span><br></pre></td></tr></table></figure>
+<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- 加粗：Ctrl+B</span><br><span class="line">- 斜体：Ctrl+I</span><br><span class="line">- 下划线：Ctrl+U</span><br><span class="line">- 代码：Ctrl+Shift+<span class="string">`</span></span><br><span class="line"><span class="string">- 删除线：Alt+Shift+5</span></span><br><span class="line"><span class="string">- 超链接：Ctrl+K</span></span><br><span class="line"><span class="string">- 图像：Ctrl+Shift+I</span></span><br><span class="line"><span class="string">- 清除样式：Ctrl+</span></span><br></pre></td></tr></table></figure>
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- 显示隐藏侧边栏：Ctrl+Shift+L</span><br><span class="line">- 大纲视图：Ctrl+Shift+<span class="number">1</span></span><br><span class="line">- 文档列表视图：Ctrl+Shift+<span class="number">2</span></span><br><span class="line">- 文件树视图：Ctrl+Shift+<span class="number">3</span></span><br><span class="line">- 源代码模式：Ctrl+/</span><br><span class="line">- 专注模式：F8</span><br><span class="line">- 打字机模式：F9</span><br><span class="line">- 切换全屏：F11</span><br><span class="line">- 实际大小：Ctrl+Shift+<span class="number">0</span></span><br><span class="line">- 放大：Ctrl+Shift+=</span><br><span class="line">- 缩小：Ctrl+Shift+-</span><br><span class="line">- 应用内窗口切换：Ctrl+Tab</span><br><span class="line">- 打开DevTools：Shift+F12</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用快捷键汇总"><a href="#常用快捷键汇总" class="headerlink" title="常用快捷键汇总"></a>常用快捷键汇总</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">无序列表：输入-之后输入空格</span><br><span class="line">有序列表：输入数字+“.”之后输入空格</span><br><span class="line">任务列表：-[空格]空格 文字</span><br><span class="line">标题：ctrl+数字</span><br><span class="line">表格：ctrl+t</span><br><span class="line">生成目录：[TOC]按回车</span><br><span class="line">选中一整行：ctrl+l</span><br><span class="line">选中单词：ctrl+d</span><br><span class="line">选中相同格式的文字：ctrl+e</span><br><span class="line">跳转到文章开头：ctrl+home</span><br><span class="line">跳转到文章结尾：ctrl+end</span><br><span class="line">搜索：ctrl+f</span><br><span class="line">替换：ctrl+h</span><br><span class="line">引用：输入&gt;之后输入空格</span><br><span class="line">代码块：ctrl+alt+f</span><br><span class="line">加粗：ctrl+b</span><br><span class="line">倾斜：ctrl+i</span><br><span class="line">下划线：ctrl+u</span><br><span class="line">删除线：alt+shift+<span class="number">5</span></span><br><span class="line">插入图片：直接拖动到指定位置即可或者ctrl+shift+i</span><br><span class="line">插入链接：ctrl+k</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Typora、Markdown</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/14/Typora%E5%BF%AB%E6%8D%B7%E9%94%AE/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-前端复习资料" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/21/%E5%89%8D%E7%AB%AF%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99/">前端复习资料</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/21/%E5%89%8D%E7%AB%AF%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99/" class="archive-article-date">
+  	<time datetime="2021-02-21T12:13:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前端复习资料"><a href="#前端复习资料" class="headerlink" title="前端复习资料"></a>前端复习资料</h1><p>1.从浏览器地址栏输入url到显示页面的步骤</p>
+<p>浏览器根据请求的URL交给DNS域名解析，找到真实IP，向服务器发起http请求；<br>服务器交给后台处理完成后返回数据，浏览器接收文件（HTML、JS、CSS、图象等）；<br>浏览器对加载到的资源（HTML、JS、CSS等）进行语法解析，建立相应的内部数据结构（如HTML的DOM）；<br>载入解析到的资源文件，渲染页面，完成。?</p>
+<p>2.margin和padding分别适合什么场景使用？</p>
+<p>margin是用来隔开元素与元素的间距；<br>需要在border外侧添加空白<br>空白处不需要背景色<br>上下相连的两个盒子之间的空白，需要相互抵消时。</p>
+<p>padding是用来隔开元素与内容的间隔。<br>需要在border内侧添加空白<br>空白处需要背景颜色<br>上下相连的两个盒子的空白，希望为两者之和。</p>
+<p>3.请描述一下cookies，sessionStorage和 localStorage的区别？<br>cookie是网站为了标示用户身份而储存在用户本地终端上的数据；cookie数据始终在同源的http请求中携带（即使不需要），也会在浏览器和服务器间来回传递。<br>sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存；<br>存储大小：<br>cookie数据大小不能超过4k sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大。<br>有效时间：<br>localStorage存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；<br>sessionStorage数据在当前浏览器窗口关闭后自动删除；<br>cookie设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭</p>
+<p>4、position有哪些值？有什么作用？<br>static。默认值，不脱离文档流，top，right，bottom，left等属性不生效。<br>relative。不脱离文档流，依据自身位置进行偏离，当子元素设置absolute，将依据它进行偏离。<br>absolute。脱离文档流，依据top，right，bottom，left等属性在正常文档流中偏移位置。<br>fixed。通过浏览器窗口进行定位，出现滚动条的时候，不会随之滚动。</p>
+<p>5、简述div+css布局与表格布局相比的优点<br>1、TABLE表格布局。<br>优点：布局容易、快捷、兼容性好。<br>缺点：改动不便，需重新调整，工作量大。<br>2、DIV+CSS。<br>优点：布局灵活、改动方便。<br>缺点：需考虑平台的兼容性，对制作人员技能要求较高。</p>
+<p>6、水平居中的方法有哪些？<br>元素为行内元素，设置父元素text-align:center<br>如果元素宽度固定，可以设置左右margin为auto;<br>如果元素为绝对定位，设置父元素position为relative，元素设left:0;right:0;margin:auto;<br>使用flex-box布局，指定justify-content属性为center<br>display设置为tabel-ceil</p>
+<p>7、CSS优先级算法如何计算？<br>优先级就近原则，同权重情况下样式定义最近者为准<br>载入样式以最后载入的定位为准<br>优先级为: !important &gt; id &gt; class &gt; tag;</p>
+<p>8、HTML全局属性(global attribute)有哪些？<br>class:为元素设置类标识<br>data-*: 为元素增加自定义属性<br>draggable: 设置元素是否可拖拽<br>id: 元素id，文档内唯一<br>lang: 元素内容的的语言<br>style: 行内css样式<br>title: 鼠标在上方时提示信息</p>
+<p>9、垂直居中有哪些方法？<br>单行文本的话可以使用height和line-height设置同一高度。<br>position+margin：设置父元素:position: relative;，子元素height: 100px;position:absolute;top: 50%; margin: -50px 0 0 0;（定高）<br>position+transform：设置父元素position:relative,子元素：position: absolute;top: 50%;transform: translate(0, -50%);（不定高）<br>百搭flex布局(ie10+)，设置父元素display:flex;align-items: center;（不定高）</p>
+<p>10、盒子模型有哪些？它们的区别是什么？<br>盒模型分为两类: IE盒模型和标准盒模型。 两者的区别在于:<br>IE盒模型的width/height = content + border + padding<br>标准盒模型的width/height = content</p>
+<p>11、单页面应用和多页面应用区别及优缺点<br>答：单页面应用（SPA），通俗一点说就是指只有一个主页面的应用，浏览器一开始要加载所有必须的 html, js, css。所有的页面内容都包含在这个所谓的主页面中。但在写的时候，还是会分开写（页面片段），然后在交互的时候由路由程序动态载入，单页面的页面跳转，仅刷新局部资源。多应用于pc端。<br>多页面（MPA），就是指一个应用中有多个页面，页面跳转时是整页刷新<br>单页面的优点：<br>用户体验好，快，内容的改变不需要重新加载整个页面，基于这一点spa对服务器压力较小；前后端分离；页面效果会比较炫酷（比如切换页面内容时的专场动画）。<br>单页面缺点：<br>不利于seo；导航不可用，如果一定要导航需要自行实现前进、后退。（由于是单页面不能用浏览器的前进后退功能，所以需要自己建立堆栈管理）；初次加载时耗时多；页面复杂度提高很多。</p>
+<p>12、v-if 和 v-show 有什么区别？<br>v-show 仅仅控制元素的显示方式，将 display 属性在 block 和 none 来回切换；而v-if会控制这个 DOM 节点的存在与否。<br>当我们需要经常切换某个元素的显示/隐藏时，使用v-show会更加节省性能上的开销；当只需要一次显示或隐藏时，使用v-if更加合理。</p>
+<p>13、什么是js的冒泡？Vue中如何阻止冒泡事件？<br>js冒泡概念：当父元素内多级子元素绑定了同一个事件，js会依次从内往外或者从外往内执行每个元素的该事件，从而引发冒泡。<br>?js解决冒泡：event.stopPropagation()<br>vue解决冒泡： 事件.stop,例如：@click.stop=”” ,@mouseover.stop=””</p>
+<p>14、Vue组件间通信的技术有哪些？<br>1.父组件与子组件传值<br>父组件传给子组件：子组件通过props方法接受数据;<br>子组件传给父组件：$emit方法传递参数</p>
+<p>2.非父子组件间的数据传递，兄弟组件传值<br>eventBus，就是创建一个事件中心，相当于中转站，可以用它来传递事件和接收事件。也可使用vuex</p>
+<p>15、简述制作一个网页的工作流程<br>内容分析：分清展现在网络中内容的层次和逻辑关系<br>结构设计：写出合理的html结构代码<br>布局设计：使用html+css进行布局<br>样式设计：首先要使用reset.css<br>交互设计：鼠标特效<br>行为设计：js代码，ajax页面行为和从服务器获取数据<br>测试兼容性；优化性能。</p>
+<p>16．减少页面加载时间的方法有哪些？<br>1.减少HTTP请求；<br>2.合并压缩Js/css文件；<br>3.使用缓存manifest；<br>4.服务器端开启gzip；<br>5.使用CDN，用户可以就近获取所需要的资源，访问速度有保障，稳定性也有保障<br>6.外部JS和CSS放底下<br>7.尽可能少的操作DOM，某些需要重复操作的DOM可以放变量里</p>
+<p>减少http请求  合并压缩CSS JS文件  服务器端开启GZIP 使用CDN</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/21/%E5%89%8D%E7%AB%AF%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-基于华为云服务器搭建方舟私服教程-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -167,9 +656,7 @@
   
 
         
-        
-
-<a href="/2021/02/13/%E5%9F%BA%E4%BA%8E%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E6%96%B9%E8%88%9F%E7%A7%81%E6%9C%8D%E6%95%99%E7%A8%8B-1/" class="archive-article-date">
+        <a href="/2021/02/13/%E5%9F%BA%E4%BA%8E%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E6%96%B9%E8%88%9F%E7%A7%81%E6%9C%8D%E6%95%99%E7%A8%8B-1/" class="archive-article-date">
   	<time datetime="2021-02-13T06:47:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-13</time>
 </a>
         
@@ -338,9 +825,7 @@
   
 
         
-        
-
-<a href="/2021/01/26/Linux%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99/" class="archive-article-date">
+        <a href="/2021/01/26/Linux%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99/" class="archive-article-date">
   	<time datetime="2021-01-26T14:18:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-26</time>
 </a>
         
@@ -348,16 +833,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1．-vi编辑器有哪些工作模式，它们之间是如何进行切换的？"><a href="#1．-vi编辑器有哪些工作模式，它们之间是如何进行切换的？" class="headerlink" title="1． vi编辑器有哪些工作模式，它们之间是如何进行切换的？"></a>1． vi编辑器有哪些工作模式，它们之间是如何进行切换的？</h2><h3 id="1、命令模式："><a href="#1、命令模式：" class="headerlink" title="1、命令模式："></a>1、命令模式：</h3><p>命令模式是启动vi后进入的工作模式，并可转换为文本编辑模式和最后行模式。在命令模式下，<br>从键盘上输入的任何字符都被当作编辑命令来解释，而不会在屏幕上显示。<br>如果输入的字符是合法的vi命令，则vi就会完成相应的动作;否则vi会响铃警告。</p>
+        <h2 id="vi编辑器有哪些工作模式，它们之间是如何进行切换的？"><a href="#vi编辑器有哪些工作模式，它们之间是如何进行切换的？" class="headerlink" title="vi编辑器有哪些工作模式，它们之间是如何进行切换的？"></a>vi编辑器有哪些工作模式，它们之间是如何进行切换的？</h2><h3 id="命令模式："><a href="#命令模式：" class="headerlink" title="命令模式："></a>命令模式：</h3><p>命令模式是启动vi后进入的工作模式，并可转换为文本编辑模式和最后行模式。在命令模式下，<br>从键盘上输入的任何字符都被当作编辑命令来解释，而不会在屏幕上显示。<br>如果输入的字符是合法的vi命令，则vi就会完成相应的动作;否则vi会响铃警告。</p>
 <p>lz只要记住 曼切斯特是1从高到低 0从低到高<br>差分曼切斯特 是遇到0要在上一个码的末位置跳一下 1则不用</p>
-<h3 id="2、文本编辑模式："><a href="#2、文本编辑模式：" class="headerlink" title="2、文本编辑模式："></a>2、文本编辑模式：</h3><p>文本编辑模式用于字符编辑。在命令模式下输入i（插入命令）、a（附加命令）等命令后进入文本编辑模式，<br>此时输入的任何字符都被vi当作文件内容显示在屏幕上。按Esc键可从文本编辑模式返回到命令模式。</p>
-<h3 id="3、最后行模式："><a href="#3、最后行模式：" class="headerlink" title="3、最后行模式："></a>3、最后行模式：</h3><p>在命令模式下，按“：”键进入最后行模式，此时vi会在屏幕的底部显示“：”符号年作为最后行模式的提示符，<br>等待用户输入相关命令。命令执行完毕后，vi自动回到命令模式。</p>
-<h2 id="2．共享库与静态库相比有什么优点？"><a href="#2．共享库与静态库相比有什么优点？" class="headerlink" title="2．共享库与静态库相比有什么优点？"></a>2．共享库与静态库相比有什么优点？</h2><p>静态库<br>当程序与静态库连接时，库中目标文件所含的所有将被程序使用的函数的机器码被 copy 到最终的可执行文件中。<br>这就会导致最终生成的可执行代码量相对变多，相当于编译器将代码补充完整了，<br>优点，这样运行起来相对就快些。不过会有个缺点: 占用磁盘和内存空间. 静态库会被添加到和它连接的每个程序中,<br>而且这些程序运行时, 都会被加载到内存中. 无形中又多消耗了更多的内存空间。</p>
+<p>###文本编辑模式：</p>
+<p>文本编辑模式用于字符编辑。在命令模式下输入i（插入命令）、a（附加命令）等命令后进入文本编辑模式，<br>此时输入的任何字符都被vi当作文件内容显示在屏幕上。按Esc键可从文本编辑模式返回到命令模式。</p>
+<h3 id="最后行模式："><a href="#最后行模式：" class="headerlink" title="最后行模式："></a>最后行模式：</h3><p>在命令模式下，按“：”键进入最后行模式，此时vi会在屏幕的底部显示“：”符号年作为最后行模式的提示符，<br>等待用户输入相关命令。命令执行完毕后，vi自动回到命令模式。</p>
+<h2 id="共享库与静态库相比有什么优点？"><a href="#共享库与静态库相比有什么优点？" class="headerlink" title="共享库与静态库相比有什么优点？"></a>共享库与静态库相比有什么优点？</h2><p>静态库<br>当程序与静态库连接时，库中目标文件所含的所有将被程序使用的函数的机器码被 copy 到最终的可执行文件中。<br>这就会导致最终生成的可执行代码量相对变多，相当于编译器将代码补充完整了，<br>优点，这样运行起来相对就快些。不过会有个缺点: 占用磁盘和内存空间. 静态库会被添加到和它连接的每个程序中,<br>而且这些程序运行时, 都会被加载到内存中. 无形中又多消耗了更多的内存空间。</p>
 <p>动态库<br>与共享库连接的可执行文件只包含它需要的函数的引用表，<br>而不是所有的函数代码，只有在程序执行时, 那些需要的函数代码才被拷贝到内存中。<br>优点，这样就使可执行文件比较小, 节省磁盘空间，<br>更进一步，操作系统使用虚拟内存，使得一份共享库驻留在内存中被多个程序使用，也同时节约了内存。<br>缺点，不过由于运行时要去链接库会花费一定的时间，执行速度相对会慢一些，总的来说静态库是牺牲了空间效率，<br>换取了时间效率，共享库是牺牲了时间效率换取了空间效率，没有好与坏的区别，只看具体需要了。<br>另外，一个程序编好后，有时需要做一些修改和优化，如果我们要修改的刚好是库函数的话，<br>在接口不变的前提下，使用共享库的程序只需要将共享库重新编译就可以了，<br>而使用静态库的程序则需要将静态库重新编译好后，将程序再重新编译一便。<br>这也是使用过程当中的差别，以现在的项目举例，在远程更新的时候，<br>如果只是*.so动态库封装内容变化了，那么只需要更新*.so即可。</p>
-<h2 id="3-名词解释：（1）套接字-（2）阻塞-（3）可重入性-（4）僵尸进程"><a href="#3-名词解释：（1）套接字-（2）阻塞-（3）可重入性-（4）僵尸进程" class="headerlink" title="3.名词解释：（1）套接字 （2）阻塞    （3）可重入性   （4）僵尸进程"></a>3.名词解释：（1）套接字 （2）阻塞    （3）可重入性   （4）僵尸进程</h2><h2 id="4-什么是信号？什么是可靠信号？"><a href="#4-什么是信号？什么是可靠信号？" class="headerlink" title="4.什么是信号？什么是可靠信号？"></a>4.什么是信号？什么是可靠信号？</h2><p>是一个软件中断；通知进程发生了某件事情，中断进程当前操作，让进程去处理这件事情<br>可靠性是指信号是否会丢失，即该信号是否支持排队；<br>如果支持排队就是可靠的，不支持排队就是不可靠的。</p>
-<h2 id="5．线程与进程相比，具有哪些特点？"><a href="#5．线程与进程相比，具有哪些特点？" class="headerlink" title="5．线程与进程相比，具有哪些特点？"></a>5．线程与进程相比，具有哪些特点？</h2><h2 id="6．什么是ThreadLocal，ThreadLocal有哪些应用场景？"><a href="#6．什么是ThreadLocal，ThreadLocal有哪些应用场景？" class="headerlink" title="6．什么是ThreadLocal，ThreadLocal有哪些应用场景？"></a>6．什么是ThreadLocal，ThreadLocal有哪些应用场景？</h2><p>ThreadLocal叫做线程变量，即ThreadLocal中填充的变量属于当前线程，该变量对其他线程而言是隔离的。场景1：<br>保存每个线程独享的对象，为每个线程都创建一个副本，这样每个线程都可以修改自己所拥有的副本, 而不会影响其他线程的副本，确保了独享的对象的线程安全。<br>场景2：<br>用作每个线程内需要独立保存信息，以便供其他方法更方便地获取该信息的场景。每个线程前面执行的方法保存了信息后，后续方法可以通过ThreadLocal直接获取到，避免传参。</p>
-<h2 id="7．什么是协程，协程与线程相比有哪些优势？"><a href="#7．什么是协程，协程与线程相比有哪些优势？" class="headerlink" title="7．什么是协程，协程与线程相比有哪些优势？"></a>7．什么是协程，协程与线程相比有哪些优势？</h2><p>协程（Coroutines）是一种比线程更加轻量级的存在，一个线程可以拥有多个协程。协程不是被操作系统内核所管理的，而是完全由程序所控制，在用户态执行。<br>和多线程比，协程具有以下优势：<br>极高的执行效率：因为子程序切换不是线程切换，而是由程序自身控制，因此，没有线程切换的开销，和多线程比，线程数量越多，协程的性能优势就越明显；<br>不需要多线程的锁机制：因为只有一个线程，也不存在同时写变量冲突，在协程中控制共享资源不加锁，只需要判断状态就好了，所以执行效率比多线程高很多。</p>
-<h2 id="8．什么是惊群效应？它有哪些不良影响？"><a href="#8．什么是惊群效应？它有哪些不良影响？" class="headerlink" title="8．什么是惊群效应？它有哪些不良影响？"></a>8．什么是惊群效应？它有哪些不良影响？</h2><p>惊群效应也叫雷鸣群体效应，指多进程（多线程）在同时阻塞等待同一个事件的时候（休眠状态），如果等待的这个事件发生，那么操作系统会唤醒等待的所有进程（或者线程），<br>但最终却只可能有一个进程（线程）对该事件进行处理，而其他进程（线程）只能重新进入休眠状态，这种现象和性能浪费就叫做惊群。<br>惊群效应到底消耗了什么<br>（1）、系统对用户进程/线程频繁地做无效的调度，上下文切换系统性能大打折扣。<br> （2）、为了确保只有一个线程得到资源，用户必须对资源操作进行加锁保护，进一步加大了系统开销。</p>
+<h2 id="名词解释：（1）套接字-（2）阻塞-（3）可重入性-（4）僵尸进程"><a href="#名词解释：（1）套接字-（2）阻塞-（3）可重入性-（4）僵尸进程" class="headerlink" title="名词解释：（1）套接字 （2）阻塞    （3）可重入性   （4）僵尸进程"></a>名词解释：（1）套接字 （2）阻塞    （3）可重入性   （4）僵尸进程</h2><h2 id="什么是信号？什么是可靠信号？"><a href="#什么是信号？什么是可靠信号？" class="headerlink" title="什么是信号？什么是可靠信号？"></a>什么是信号？什么是可靠信号？</h2><p>是一个软件中断；通知进程发生了某件事情，中断进程当前操作，让进程去处理这件事情<br>可靠性是指信号是否会丢失，即该信号是否支持排队；<br>如果支持排队就是可靠的，不支持排队就是不可靠的。</p>
+<h2 id="线程与进程相比，具有哪些特点？"><a href="#线程与进程相比，具有哪些特点？" class="headerlink" title="线程与进程相比，具有哪些特点？"></a>线程与进程相比，具有哪些特点？</h2><h2 id="什么是ThreadLocal，ThreadLocal有哪些应用场景？"><a href="#什么是ThreadLocal，ThreadLocal有哪些应用场景？" class="headerlink" title="什么是ThreadLocal，ThreadLocal有哪些应用场景？"></a>什么是ThreadLocal，ThreadLocal有哪些应用场景？</h2><p>ThreadLocal叫做线程变量，即ThreadLocal中填充的变量属于当前线程，该变量对其他线程而言是隔离的。场景1：<br>保存每个线程独享的对象，为每个线程都创建一个副本，这样每个线程都可以修改自己所拥有的副本, 而不会影响其他线程的副本，确保了独享的对象的线程安全。<br>场景2：<br>用作每个线程内需要独立保存信息，以便供其他方法更方便地获取该信息的场景。每个线程前面执行的方法保存了信息后，后续方法可以通过ThreadLocal直接获取到，避免传参。</p>
+<h2 id="什么是协程，协程与线程相比有哪些优势？"><a href="#什么是协程，协程与线程相比有哪些优势？" class="headerlink" title="什么是协程，协程与线程相比有哪些优势？"></a>什么是协程，协程与线程相比有哪些优势？</h2><p>协程（Coroutines）是一种比线程更加轻量级的存在，一个线程可以拥有多个协程。协程不是被操作系统内核所管理的，而是完全由程序所控制，在用户态执行。<br>和多线程比，协程具有以下优势：<br>极高的执行效率：因为子程序切换不是线程切换，而是由程序自身控制，因此，没有线程切换的开销，和多线程比，线程数量越多，协程的性能优势就越明显；<br>不需要多线程的锁机制：因为只有一个线程，也不存在同时写变量冲突，在协程中控制共享资源不加锁，只需要判断状态就好了，所以执行效率比多线程高很多。</p>
+<h2 id="什么是惊群效应？它有哪些不良影响？"><a href="#什么是惊群效应？它有哪些不良影响？" class="headerlink" title="什么是惊群效应？它有哪些不良影响？"></a>什么是惊群效应？它有哪些不良影响？</h2><p>惊群效应也叫雷鸣群体效应，指多进程（多线程）在同时阻塞等待同一个事件的时候（休眠状态），如果等待的这个事件发生，那么操作系统会唤醒等待的所有进程（或者线程），<br>但最终却只可能有一个进程（线程）对该事件进行处理，而其他进程（线程）只能重新进入休眠状态，这种现象和性能浪费就叫做惊群。<br>惊群效应到底消耗了什么<br>（1）、系统对用户进程/线程频繁地做无效的调度，上下文切换系统性能大打折扣。<br> （2）、为了确保只有一个线程得到资源，用户必须对资源操作进行加锁保护，进一步加大了系统开销。</p>
 <h2 id="9．什么是epoll？epoll与pool，select相比，具有什么特点？"><a href="#9．什么是epoll？epoll与pool，select相比，具有什么特点？" class="headerlink" title="9．什么是epoll？epoll与pool，select相比，具有什么特点？"></a>9．什么是epoll？epoll与pool，select相比，具有什么特点？</h2><h2 id="10．给出Socket编程TCP服务器和客户端API的调用关系图"><a href="#10．给出Socket编程TCP服务器和客户端API的调用关系图" class="headerlink" title="10．给出Socket编程TCP服务器和客户端API的调用关系图"></a>10．给出Socket编程TCP服务器和客户端API的调用关系图</h2>
       
 
@@ -433,18 +919,8 @@
       	</div>
     </div>
   </div>
-
-        <!-- 不蒜子统计 -->
-        <span id="busuanzi_container_site_pv">
-                本站总访问量<span id="busuanzi_value_site_pv"></span>次
-        </span>
-        <span class="post-meta-divider">|</span>
-        <span id="busuanzi_container_site_uv" style='display:none'>
-                本站访客数<span id="busuanzi_value_site_uv"></span>人
-        </span>
-        <script async src="/busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  
 </footer>
+
 
 
     </div>
@@ -534,6 +1010,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VSCODE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux,centos</a>
               </li>
              
@@ -542,7 +1022,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vscode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VSCODE插件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">web复习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -558,7 +1046,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
+                <a href="javascript:void(0)" class="js-tag color4">CDN</a>
               </li>
             
             <div class="clearfix"></div>
@@ -715,5 +1203,5 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 
 </div>
   </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-waifu"},"display":{"position":"right","width":250,"height":400},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
 </html>

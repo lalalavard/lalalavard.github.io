@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="https://www.lavard.cn">
   <title>centos安装tomcat+jdk+mysql | 来自拉夫德鲁的码农</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="提前准备:win10系统电脑（安装有secureFX 和secureCRT。或其他远程连接软件）,远程连接的电脑(虚拟机or云服务器) JDK安装1 用securefxp传输jdk到&#x2F;home2 cd &#x2F;home3 cp jdk-8u181-linux-x64.tar.gz &#x2F;usr&#x2F;local&#x2F;4 cd &#x2F;usr&#x2F;local5 tar xvfz jdk-8u181-linux-x64.tar.g">
+  <meta name="description" content="centos为我们常用的服务器镜像，熟悉基本环境配置 选用了最常见的 jdk+mysql+tomcat   (spring boot +spring cloud) 可选 php + nginx&#x2F;tomcat + mysql    (lavarel) JDK安装1234567891011121314151617181 用securefxp传输jdk到&#x2F;home2 cd &#x2F;home3 cp jdk-8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="centos安装tomcat+jdk+mysql">
 <meta property="og:url" content="https://www.lavard.cn/2021/03/16/centos%E5%AE%89%E8%A3%85tomcat+jdk+mysql/index.html">
 <meta property="og:site_name" content="来自拉夫德鲁的码农">
-<meta property="og:description" content="提前准备:win10系统电脑（安装有secureFX 和secureCRT。或其他远程连接软件）,远程连接的电脑(虚拟机or云服务器) JDK安装1 用securefxp传输jdk到&#x2F;home2 cd &#x2F;home3 cp jdk-8u181-linux-x64.tar.gz &#x2F;usr&#x2F;local&#x2F;4 cd &#x2F;usr&#x2F;local5 tar xvfz jdk-8u181-linux-x64.tar.g">
+<meta property="og:description" content="centos为我们常用的服务器镜像，熟悉基本环境配置 选用了最常见的 jdk+mysql+tomcat   (spring boot +spring cloud) 可选 php + nginx&#x2F;tomcat + mysql    (lavarel) JDK安装1234567891011121314151617181 用securefxp传输jdk到&#x2F;home2 cd &#x2F;home3 cp jdk-8">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-16T14:18:42.000Z">
-<meta property="article:modified_time" content="2021-04-11T07:05:05.278Z">
+<meta property="article:modified_time" content="2021-09-05T05:15:09.592Z">
 <meta property="article:author" content="lavard">
 <meta property="article:tag" content="Linux,centos">
 <meta name="twitter:card" content="summary">
@@ -168,14 +168,7 @@
   
 
         
-        
-        <!-- 不蒜子统计 -->
-        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
-              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
-        </span>
-
-
-<a href="/2021/03/16/centos%E5%AE%89%E8%A3%85tomcat+jdk+mysql/" class="archive-article-date">
+        <a href="/2021/03/16/centos%E5%AE%89%E8%A3%85tomcat+jdk+mysql/" class="archive-article-date">
   	<time datetime="2021-03-16T14:18:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-16</time>
 </a>
         
@@ -183,39 +176,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>提前准备:win10系统电脑（安装有secureFX 和secureCRT。或其他远程连接软件）,远程连接的电脑(虚拟机or云服务器)</p>
-<h1 id="JDK安装"><a href="#JDK安装" class="headerlink" title="JDK安装"></a>JDK安装</h1><p>1 用securefxp传输jdk到/home<br>2 cd /home<br>3 cp jdk-8u181-linux-x64.tar.gz /usr/local/<br>4 cd /usr/local<br>5 tar xvfz jdk-8u181-linux-x64.tar.gz<br>6 mv jdk1.8.0_181/ jdk1.8<br>7 修改环境变量<br>vi /etc/profile<br>在末尾添加：<br>#set javaenvironment<br>export JAVA_HOME=/usr/local/jdk1.8<br>export PATH=$JAVA_HOME/bin:$PATH<br>export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</p>
-<p>8让配置生效<br>source /etc/profile<br>9 验证<br>java -version</p>
-<h1 id="Mysql安装"><a href="#Mysql安装" class="headerlink" title="Mysql安装"></a>Mysql安装</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_20258573/article/details/91795867">https://blog.csdn.net/qq_20258573/article/details/91795867</a></p>
-<p>1 更新源<br>wget <a target="_blank" rel="noopener" href="http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm">http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm</a></p>
-<p>2<br>yum localinstall mysql57-community-release-el7-8.noarch.rpm </p>
-<p>3 安装MySQL<br>yum install mysql-community-server</p>
-<p>6.启动MySQL服务</p>
-<p>shell&gt; systemctl start mysqld</p>
-<p>7.开机启动</p>
-<p>systemctl enable mysqld</p>
-<p>systemctl daemon-reload</p>
-<p>8.修改root本地登录密码</p>
-<p> 1）查看mysql密码</p>
-<p>grep “temporary password” /var/log/mysqld.log</p>
-<p>2）连接mysql</p>
-<p>shell&gt; mysql -u root -p</p>
-<p>3）修改密码[注意：后面的分号一定要跟上]</p>
-<p>mysql&gt; ALTER USER ‘root’@’localhost’ IDENTIFIED BY ‘MyNewPass4!’;</p>
-<p>或者：</p>
-<p>mysql&gt; set password for ‘root’@’localhost’=password(‘MyNewPass4!’); </p>
-<h1 id="Tomcat安装"><a href="#Tomcat安装" class="headerlink" title="Tomcat安装"></a>Tomcat安装</h1><p>(1) 用secureFx传输文件到 /root<br>(2) cd /usr/local/<br>(3) cp /root/apache-tomcat-8.5.46.tar.gz .<br>(4) tar xvfz apache-tomcat-8.5.46.tar.gz<br>(5)systemctl stop firewalld.service    关闭防火墙<br>firewall-cmd –state<br>(6) cd apache-tomcat-8.5.46/bin<br>(7) ./startup.sh   运行apache<br>ps -ef | grep “java”<br>netstat -an | grep “8080”<br>用浏览器访问：  <a target="_blank" rel="noopener" href="http://192.168.2.131:8080/">http://192.168.2.131:8080/</a><br>(8)<br>cd /usr/local/apache-tomcat-8.5.46/webapps/ROOT<br>(9)<br>vi hello.htm  拷贝下列内容到hello.htm</p>
-<html>
-<head>
-  <title> welcome </title>
-</head>
-<body>
-   hello world!
-</body>
-</html>
+        <p><strong>centos为我们常用的服务器镜像，熟悉基本环境配置</strong></p>
+<p><strong>选用了最常见的 jdk+mysql+tomcat   (spring boot +spring cloud)</strong></p>
+<p><strong>可选 php + nginx/tomcat + mysql    (lavarel)</strong></p>
+<h1 id="JDK安装"><a href="#JDK安装" class="headerlink" title="JDK安装"></a>JDK安装</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1 用securefxp传输jdk到/home</span><br><span class="line">2 cd /home</span><br><span class="line">3 cp jdk-8u181-linux-x64.tar.gz /usr/local/</span><br><span class="line">4 cd /usr/local</span><br><span class="line">5 tar xvfz jdk-8u181-linux-x64.tar.gz</span><br><span class="line">6 mv jdk1.8.0_181/ jdk1.8</span><br><span class="line">7 修改环境变量</span><br><span class="line">vi /etc/profile</span><br><span class="line">在末尾添加：</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">set</span> javaenvironment</span></span><br><span class="line">export JAVA_HOME=/usr/local/jdk1.8</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br><span class="line"></span><br><span class="line">8让配置生效</span><br><span class="line">source /etc/profile</span><br><span class="line">9 验证</span><br><span class="line">java -version</span><br></pre></td></tr></table></figure>
 
-<p>(10) 访问 <a target="_blank" rel="noopener" href="http://xxxx/hello.htm">http://xxxx/hello.htm</a></p>
-<p>(11) 新开ssh窗口<br>(12) cd /usr/local/apache-tomcat-8.5.46/logs<br>tail -f localhost_access_log.2019-09-27.txt</p>
+
+
+<h1 id="Mysql安装"><a href="#Mysql安装" class="headerlink" title="Mysql安装"></a>Mysql安装</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">https://blog.csdn.net/qq_20258573/article/details/91795867</span><br><span class="line"></span><br><span class="line">1 更新源</span><br><span class="line">wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm</span><br><span class="line"></span><br><span class="line">2</span><br><span class="line">yum localinstall mysql57-community-release-el7-8.noarch.rpm </span><br><span class="line"></span><br><span class="line">3 安装MySQL</span><br><span class="line">yum install mysql-community-server</span><br><span class="line"></span><br><span class="line">6.启动MySQL服务</span><br><span class="line"></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> systemctl start mysqld</span></span><br><span class="line"></span><br><span class="line">7.开机启动</span><br><span class="line"></span><br><span class="line">systemctl enable mysqld</span><br><span class="line"></span><br><span class="line">systemctl daemon-reload</span><br><span class="line"></span><br><span class="line">8.修改root本地登录密码</span><br><span class="line"></span><br><span class="line"> 1）查看mysql密码</span><br><span class="line"></span><br><span class="line">grep &quot;temporary password&quot; /var/log/mysqld.log</span><br><span class="line"></span><br><span class="line">2）连接mysql</span><br><span class="line"></span><br><span class="line"><span class="meta">shell&gt;</span><span class="bash"> mysql -u root -p</span></span><br><span class="line"></span><br><span class="line">3）修改密码[注意：后面的分号一定要跟上]</span><br><span class="line"></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> ALTER USER <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED BY <span class="string">&#x27;MyNewPass4!&#x27;</span>;</span></span><br><span class="line"></span><br><span class="line">或者：</span><br><span class="line"></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">set</span> password <span class="keyword">for</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>=password(<span class="string">&#x27;MyNewPass4!&#x27;</span>);</span> </span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Tomcat安装"><a href="#Tomcat安装" class="headerlink" title="Tomcat安装"></a>Tomcat安装</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">(1) 用secureFx传输文件到 /root</span><br><span class="line">(2) cd /usr/local/</span><br><span class="line">(3) cp /root/apache-tomcat-8.5.46.tar.gz .</span><br><span class="line">(4) tar xvfz apache-tomcat-8.5.46.tar.gz</span><br><span class="line">(5)systemctl stop firewalld.service    关闭防火墙</span><br><span class="line">firewall-cmd --state</span><br><span class="line">(6) cd apache-tomcat-8.5.46/bin</span><br><span class="line">(7) ./startup.sh   运行apache</span><br><span class="line">ps -ef | grep &quot;java&quot;</span><br><span class="line">netstat -an | grep &quot;8080&quot;</span><br><span class="line">用浏览器访问：  http://192.168.2.131:8080/</span><br><span class="line">(8)</span><br><span class="line">cd /usr/local/apache-tomcat-8.5.46/webapps/ROOT</span><br><span class="line">(9)</span><br><span class="line">vi hello.htm  拷贝下列内容到hello.htm</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt; welcome &lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">   hello world!</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br><span class="line">(10) 访问 http://xxxx/hello.htm</span><br><span class="line"></span><br><span class="line">(11) 新开ssh窗口</span><br><span class="line">(12) cd /usr/local/apache-tomcat-8.5.46/logs</span><br><span class="line">tail -f localhost_access_log.2019-09-27.txt</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -330,11 +303,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/03/22/SpringBoot%E5%9F%BA%E7%A1%80/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/03/26/linux%E5%91%BD%E4%BB%A4%E5%92%8Cdocker/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          SpringBoot基础
+          linux运维命令
         
       </div>
     </a>
@@ -392,18 +365,8 @@
       	</div>
     </div>
   </div>
-
-        <!-- 不蒜子统计 -->
-        <span id="busuanzi_container_site_pv">
-                本站总访问量<span id="busuanzi_value_site_pv"></span>次
-        </span>
-        <span class="post-meta-divider">|</span>
-        <span id="busuanzi_container_site_uv" style='display:none'>
-                本站访客数<span id="busuanzi_value_site_uv"></span>人
-        </span>
-        <script async src="/busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  
 </footer>
+
 
 
     </div>
@@ -493,6 +456,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VSCODE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Linux,centos</a>
               </li>
              
@@ -501,7 +468,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vscode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VSCODE插件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">web复习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -517,7 +492,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
+                <a href="javascript:void(0)" class="js-tag color4">CDN</a>
               </li>
             
             <div class="clearfix"></div>
@@ -674,5 +649,5 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 
 </div>
   </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-waifu"},"display":{"position":"right","width":250,"height":400},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
 </html>

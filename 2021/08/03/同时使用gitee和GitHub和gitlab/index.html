@@ -6,22 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.lavard.cn">
-  <title>来自拉夫德鲁的码农</title>
+  <title>一台电脑上同时使用Gitee（码云）和Github/Gitlab | 来自拉夫德鲁的码农</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="起因：​    之前的博客是使用hugo+github pages部署，但是毕竟是国外的服务器，博客访问特别慢，于是想给github pages加个CDN,但是用了云服务器提供的CDN加速后还是时不时404，,突然联想到国内码云gitee也有gitee pages服务，于是想直接把博客迁移至gitee上，但遇到了一些问题。 ​    一般来说，在 Gitee 上和在 Github 上使用的账号邮箱">
+  <meta name="description" content="一台电脑上同时使用Gitee（码云）和Github&#x2F;Gitlab起因：​    之前的博客是使用hugo+github pages部署，但是毕竟是国外的服务器，博客访问特别慢，于是想给github pages加个CDN,但是用了云服务器提供的CDN加速后还是时不时404，,突然联想到国内码云gitee也有gitee pages服务，于是想直接把博客迁移至gitee上，但遇到了一些问题。 ​">
 <meta property="og:type" content="article">
-<meta property="og:title" content="来自拉夫德鲁的码农">
-<meta property="og:url" content="https://www.lavard.cn/2021/09/05/%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8gitee%E5%92%8CGitHub%E5%92%8Cgitlab/index.html">
+<meta property="og:title" content="一台电脑上同时使用Gitee（码云）和Github&#x2F;Gitlab">
+<meta property="og:url" content="https://www.lavard.cn/2021/08/03/%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8gitee%E5%92%8CGitHub%E5%92%8Cgitlab/index.html">
 <meta property="og:site_name" content="来自拉夫德鲁的码农">
-<meta property="og:description" content="起因：​    之前的博客是使用hugo+github pages部署，但是毕竟是国外的服务器，博客访问特别慢，于是想给github pages加个CDN,但是用了云服务器提供的CDN加速后还是时不时404，,突然联想到国内码云gitee也有gitee pages服务，于是想直接把博客迁移至gitee上，但遇到了一些问题。 ​    一般来说，在 Gitee 上和在 Github 上使用的账号邮箱">
+<meta property="og:description" content="一台电脑上同时使用Gitee（码云）和Github&#x2F;Gitlab起因：​    之前的博客是使用hugo+github pages部署，但是毕竟是国外的服务器，博客访问特别慢，于是想给github pages加个CDN,但是用了云服务器提供的CDN加速后还是时不时404，,突然联想到国内码云gitee也有gitee pages服务，于是想直接把博客迁移至gitee上，但遇到了一些问题。 ​">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.lavard.cn/2021/09/05/%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8gitee%E5%92%8CGitHub%E5%92%8Cgitlab/hWChDg.png">
-<meta property="og:image" content="https://www.lavard.cn/2021/09/05/%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8gitee%E5%92%8CGitHub%E5%92%8Cgitlab/hWC4bQ.png">
-<meta property="article:published_time" content="2021-09-05T07:28:15.994Z">
-<meta property="article:modified_time" content="2021-09-05T07:32:08.952Z">
+<meta property="og:image" content="https://www.lavard.cn/2021/08/03/%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8gitee%E5%92%8CGitHub%E5%92%8Cgitlab/hWChDg.png">
+<meta property="og:image" content="https://www.lavard.cn/2021/08/03/%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8gitee%E5%92%8CGitHub%E5%92%8Cgitlab/hWC4bQ.png">
+<meta property="article:published_time" content="2021-08-03T11:48:07.000Z">
+<meta property="article:modified_time" content="2021-09-05T07:44:56.579Z">
 <meta property="article:author" content="lavard">
+<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.lavard.cn/2021/09/05/%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8gitee%E5%92%8CGitHub%E5%92%8Cgitlab/hWChDg.png">
+<meta name="twitter:image" content="https://www.lavard.cn/2021/08/03/%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8gitee%E5%92%8CGitHub%E5%92%8Cgitlab/hWChDg.png">
   
     <link rel="alternative" href="/atom.xml" title="来自拉夫德鲁的码农" type="application/atom+xml">
   
@@ -43,6 +44,11 @@
 
 
 <body>
+  <!-- 引入jquery和下雪js文件 -->
+  <script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script>
+  <script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+  <script type="text/javascript" src="../source/js/snow.js"></script>
+  <!-- 引入jquery和下雪js文件 -->
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
     <div class="left-col" q-class="show:isShow">
@@ -161,9 +167,24 @@
             <article id="post-同时使用gitee和GitHub和gitlab" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      一台电脑上同时使用Gitee（码云）和Github/Gitlab
+    </h1>
+  
+
+        
+        <a href="/2021/08/03/%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8gitee%E5%92%8CGitHub%E5%92%8Cgitlab/" class="archive-article-date">
+  	<time datetime="2021-08-03T11:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-03</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="起因："><a href="#起因：" class="headerlink" title="起因："></a>起因：</h1><p>​    <strong>之前的博客是使用hugo+github pages部署，但是毕竟是国外的服务器，博客访问特别慢，于是想给github pages加个CDN,但是用了云服务器提供的CDN加速后还是时不时404，,突然联想到国内码云gitee也有gitee pages服务，于是想直接把博客迁移至gitee上，但遇到了一些问题。</strong></p>
+        <h1 id="一台电脑上同时使用Gitee（码云）和Github-Gitlab"><a href="#一台电脑上同时使用Gitee（码云）和Github-Gitlab" class="headerlink" title="一台电脑上同时使用Gitee（码云）和Github/Gitlab"></a>一台电脑上同时使用Gitee（码云）和Github/Gitlab</h1><h1 id="起因："><a href="#起因：" class="headerlink" title="起因："></a>起因：</h1><p>​    <strong>之前的博客是使用hugo+github pages部署，但是毕竟是国外的服务器，博客访问特别慢，于是想给github pages加个CDN,但是用了云服务器提供的CDN加速后还是时不时404，,突然联想到国内码云gitee也有gitee pages服务，于是想直接把博客迁移至gitee上，但遇到了一些问题。</strong></p>
 <p>​    <strong>一般来说，在 Gitee 上和在 Github 上使用的账号邮箱应该是不一样的(回家换了电脑/重装系统)，因此git需要重新配置一遍，仅此记录所踩过的坑。</strong></p>
 <h1 id="如何在一台电脑上同时使用Gitee（码云）和Github-Gitlab？"><a href="#如何在一台电脑上同时使用Gitee（码云）和Github-Gitlab？" class="headerlink" title="如何在一台电脑上同时使用Gitee（码云）和Github/Gitlab？"></a>如何在一台电脑上同时使用Gitee（码云）和Github/Gitlab？</h1><h2 id="答案-ssh密钥"><a href="#答案-ssh密钥" class="headerlink" title="答案:ssh密钥"></a>答案:ssh密钥</h2><h2 id="既可以同时连接gitee和github，也可以在推送的时候免去输入账号密码这等重复步骤"><a href="#既可以同时连接gitee和github，也可以在推送的时候免去输入账号密码这等重复步骤" class="headerlink" title="(既可以同时连接gitee和github，也可以在推送的时候免去输入账号密码这等重复步骤)"></a>(既可以同时连接gitee和github，也可以在推送的时候免去输入账号密码这等重复步骤)</h2><h1 id="1-清除之前的git全局配置"><a href="#1-清除之前的git全局配置" class="headerlink" title="1. 清除之前的git全局配置"></a>1. 清除之前的git全局配置</h1><h4 id="之前安装过git且配置过邮箱和用户名的执行下面语句删除之前的git配置"><a href="#之前安装过git且配置过邮箱和用户名的执行下面语句删除之前的git配置" class="headerlink" title="之前安装过git且配置过邮箱和用户名的执行下面语句删除之前的git配置:"></a>之前安装过git且配置过邮箱和用户名的执行下面语句删除之前的git配置:</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global --list //查看你之前是否设置</span><br><span class="line"></span><br><span class="line">//删除之前的配置</span><br><span class="line">git config --global --unset user.name &quot;你的名字&quot; //删除之前的名字配置</span><br><span class="line">git config --global --unset user.email &quot;你的邮箱&quot;//删除之前的名字配置</span><br></pre></td></tr></table></figure>
 
@@ -188,15 +209,15 @@
 
 <p><strong>打开 Gitee 和 Github 的网站找到设置，再找到 SSH Keys，添加复制的 public key 。</strong></p>
 <p><strong>生成公钥的语句中不涉及目标网站，所以一个公钥完全可以用于多个网站</strong></p>
-<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hWChDg"><img src="/2021/09/05/%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8gitee%E5%92%8CGitHub%E5%92%8Cgitlab/hWChDg.png" alt="hWChDg.png"></a><br><a target="_blank" rel="noopener" href="https://imgtu.com/i/hWC4bQ"><img src="/2021/09/05/%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8gitee%E5%92%8CGitHub%E5%92%8Cgitlab/hWC4bQ.png" alt="hWC4bQ.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/hWChDg"><img src="/2021/08/03/%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8gitee%E5%92%8CGitHub%E5%92%8Cgitlab/hWChDg.png" alt="hWChDg.png"></a><br><a target="_blank" rel="noopener" href="https://imgtu.com/i/hWC4bQ"><img src="/2021/08/03/%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8gitee%E5%92%8CGitHub%E5%92%8Cgitlab/hWC4bQ.png" alt="hWC4bQ.png"></a></p>
 <h1 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h1><p><strong>在 .ssh 文件夹中创建 config 文件，添加以下内容以区分多个 ssh key：</strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># gitee</span><br><span class="line">Host gitee.com</span><br><span class="line">HostName gitee.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_gitee</span><br><span class="line"></span><br><span class="line"># github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_github</span><br><span class="line"></span><br><span class="line">#gitlab</span><br><span class="line">Host 47.xxx.xxx.22x</span><br><span class="line">HostName 47.xxx.xxx.xx4</span><br><span class="line">User git</span><br><span class="line">IdentityFile ~/.ssh/id_rsa.gitlab</span><br></pre></td></tr></table></figure>
 
 <p><strong>添加完上面的配置后到 github 和 gitlab/ gitee网站添加 ssh</strong></p>
-<h1 id="测试连接是否正常"><a href="#测试连接是否正常" class="headerlink" title="测试连接是否正常"></a>测试连接是否正常</h1><p>每个托管商的仓库都有唯一的后缀，比如 Github 的是 <a href="mailto:&#103;&#x69;&#116;&#x40;&#103;&#x69;&#x74;&#104;&#117;&#98;&#x2e;&#x63;&#111;&#x6d;">&#103;&#x69;&#116;&#x40;&#103;&#x69;&#x74;&#104;&#117;&#98;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<h1 id="测试连接是否正常"><a href="#测试连接是否正常" class="headerlink" title="测试连接是否正常"></a>测试连接是否正常</h1><p>每个托管商的仓库都有唯一的后缀，比如 Github 的是 <a href="mailto:&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#104;&#117;&#x62;&#46;&#x63;&#111;&#x6d;">&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#104;&#117;&#x62;&#46;&#x63;&#111;&#x6d;</a></p>
 <p>至此电脑端配置完毕，将两个ssh分别添加到github和gitee中，测试:</p>
-<p>ssh -T <a href="mailto:&#x67;&#105;&#x74;&#x40;&#x67;&#105;&#x74;&#104;&#117;&#x62;&#46;&#99;&#111;&#109;">&#x67;&#105;&#x74;&#x40;&#x67;&#105;&#x74;&#104;&#117;&#x62;&#46;&#99;&#111;&#109;</a></p>
-<p>ssh -T <a href="mailto:&#103;&#x69;&#116;&#64;&#x67;&#105;&#116;&#101;&#x65;&#46;&#99;&#x6f;&#x6d;">&#103;&#x69;&#116;&#64;&#x67;&#105;&#116;&#101;&#x65;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>ssh -T <a href="mailto:&#103;&#105;&#x74;&#64;&#103;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#111;&#109;">&#103;&#105;&#x74;&#64;&#103;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#111;&#109;</a></p>
+<p>ssh -T <a href="mailto:&#103;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#x65;&#x65;&#x2e;&#x63;&#111;&#x6d;">&#103;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#x65;&#x65;&#x2e;&#x63;&#111;&#x6d;</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Welcome to Gitee.com, xxxx yourname! //返回这句说明连接正常</span><br></pre></td></tr></table></figure>
 
 
@@ -233,13 +254,13 @@
                   <div class="reward-box">
                     
                     <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <img class="reward-img" src="https://imgtu.com/i/hWPKPI">
                       <span class="reward-type">支付宝</span>
                     </div>
                     
                     
                     <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/weixin.jpg">
+                      <img class="reward-img" src="https://imgtu.com/i/hWPnIA">
                       <span class="reward-type">微信</span>
                     </div>
                     
@@ -255,6 +276,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -305,7 +337,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://www.lavard.cn/2021/09/05/%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8gitee%E5%92%8CGitHub%E5%92%8Cgitlab/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://www.lavard.cn/2021/08/03/%E5%90%8C%E6%97%B6%E4%BD%BF%E7%94%A8gitee%E5%92%8CGitHub%E5%92%8Cgitlab/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -319,9 +351,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2021/08/03/%E6%96%87%E8%89%BA%E5%8F%A5%E5%AD%90/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          前端网站汇总
+        
+      </div>
+    </a>
   
-    <a href="/2021/09/05/%E6%96%87%E8%89%BA%E5%8F%A5%E5%AD%90/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+  
+    <a href="/2021/07/16/vscode%E4%BD%BF%E7%94%A8git/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Vscode使用git</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -372,6 +413,25 @@
       	</div>
     </div>
   </div>
+  <!-- 网站运行天数 -->
+  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+	<script>
+		var now = new Date(); 
+		function createtime() { 
+			var grt= new Date("12/14/2019 17:38:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+			now.setTime(now.getTime()+250); 
+			days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+			hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+			if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+			mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+			seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+			snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+			document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+			document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+		} 
+	setInterval("createtime()",250);
+	</script>
+<!-- 网站运行天数 -->
 </footer>
 
 
@@ -500,6 +560,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CDN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
             
             <div class="clearfix"></div>
@@ -656,5 +720,5 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 
 </div>
   </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-waifu"},"display":{"position":"right","width":250,"height":400},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":300,"height":600},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
 </html>

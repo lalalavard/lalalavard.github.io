@@ -100,8 +100,8 @@
 	</header>		
 </div>
 
-<div style="position: absolute; bottom: 500px;left: 0px;width: 50%;">
-	<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1376406253&auto=1&height=66"></iframe>
+<div style="position: absolute; bottom: 0px;left: 0px;width: 50%;">
+	<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=300 height=86 src="//music.163.com/outchain/player?type=2&id=1376406253&auto=1&height=66"></iframe>
 </div>
 
     </div>
@@ -165,6 +165,140 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-Docker学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/04/10/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Docker学习笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2021/04/10/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2021-04-10T03:48:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Docker学习笔记"><a href="#Docker学习笔记" class="headerlink" title="Docker学习笔记"></a>Docker学习笔记</h1><p>个人理解：一个镜像可以启动多个容器，大概相等于类与实例的关系  </p>
+<h2 id="镜像-Image"><a href="#镜像-Image" class="headerlink" title="镜像(Image)"></a>镜像(Image)</h2><p>docker镜像就像是一个模板，可以通过这个模板来创建容器服务，TOMCATj镜像===》run===》tomcat01容器（提供服务器）通过这个镜像可以创建多个容器(最终服务运行或项目运行就是在容器中的)。</p>
+<h2 id="容器-container"><a href="#容器-container" class="headerlink" title="容器(container)"></a>容器(container)</h2><p><strong>docker利用容器技术，独立运行一个或者一个租应用。通过镜像来创建的。</strong></p>
+<p><strong>启动，停止，删除，基本命令！</strong></p>
+<p><strong>可以将容器理解为简易的Linux系统</strong></p>
+<h3 id="说明：我们有了镜像才可以创建容器，linux下载一个centos镜像来学习"><a href="#说明：我们有了镜像才可以创建容器，linux下载一个centos镜像来学习" class="headerlink" title="说明：我们有了镜像才可以创建容器，linux下载一个centos镜像来学习"></a>说明：我们有了镜像才可以创建容器，linux下载一个centos镜像来学习</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull cenots</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="新建容器并启动容器"><a href="#新建容器并启动容器" class="headerlink" title="新建容器并启动容器"></a>新建容器并启动容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">docker run [可选参数] image</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">参数说明</span></span><br><span class="line"></span><br><span class="line">--name=&#x27;Name&#x27;  容器名词 tomcat01</span><br><span class="line"></span><br><span class="line">-d                          后台方式运行</span><br><span class="line"></span><br><span class="line">-it 						使用交互方式进行，进入容器查看内容</span><br><span class="line"></span><br><span class="line">-p 						指定容器的端口 -p</span><br><span class="line"></span><br><span class="line">​		-p  ip:主机端口：容器端口</span><br><span class="line"></span><br><span class="line">​		-p  主机端口：容器端口</span><br><span class="line"></span><br><span class="line">​		-p   容器端口</span><br><span class="line"></span><br><span class="line">-p  						随机指定端口</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">测试，进入容器</span></span><br><span class="line"></span><br><span class="line">docker run -it cenots /bin/bash</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="列出所有的运行的容器"><a href="#列出所有的运行的容器" class="headerlink" title="列出所有的运行的容器"></a>列出所有的运行的容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps 命令</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="退出容器"><a href="#退出容器" class="headerlink" title="退出容器"></a>退出容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br><span class="line">ctrl +p+q</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker  rm 容器id  #删除指定的容器，不能删除正在运行的容器</span><br><span class="line"></span><br><span class="line">docker  rm -f $(docker ps -aq) #强制删除容器 -f   -r递归删除</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="启动和停止容器的操作"><a href="#启动和停止容器的操作" class="headerlink" title="启动和停止容器的操作"></a>启动和停止容器的操作</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker start 容器id </span><br><span class="line"></span><br><span class="line">docker restart 容器id </span><br><span class="line"></span><br><span class="line">docker stop 容器id</span><br><span class="line"></span><br><span class="line"> docker kill 容器id</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="仓库-repository"><a href="#仓库-repository" class="headerlink" title="仓库(repository)"></a>仓库(repository)</h2><p><strong>仓库就是存放镜像的地方</strong></p>
+<p><strong>仓库分公有和私有仓库</strong></p>
+<p><strong>Docker Hub （默认是国外的）</strong></p>
+<p><strong>国内阿里云华为云等都有容器服务器(配置镜像加速)</strong></p>
+<h2 id="Docker概述-容器-镜像-仓库"><a href="#Docker概述-容器-镜像-仓库" class="headerlink" title="Docker概述 (容器 镜像 仓库)"></a><strong>Docker概述 (容器 镜像 仓库)</strong></h2><p><strong>产品：开发环境  —–上线环境  两套环境  应用环境 应用配置</strong></p>
+<p><strong>开发： 运维  问题：在我的电脑可以运行，你的电脑不可以运行</strong><br><strong>或版本更新服务不可用，对运维来说考验非常大</strong><br><strong>环境配置十分麻烦，每一个机器都要部署(集群 Redis ,ES,Hadoop)</strong><br><strong>发布一个项目 jar +（Redis Mysql jdk ES）,带上环境安装打包发布</strong><br><strong>运维开发都要干</strong></p>
+<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">1. /uname -v</span><br><span class="line"></span><br><span class="line">2. 需要的安装包</span><br><span class="line"></span><br><span class="line">   yum install -y yum-utils</span><br><span class="line"></span><br><span class="line">3. 设置镜像仓库</span><br><span class="line"></span><br><span class="line">   yum-config-manger \</span><br><span class="line"></span><br><span class="line">   --add-eepo \</span><br><span class="line"></span><br><span class="line">    yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"></span><br><span class="line">4. 更新yum软件包索引</span><br><span class="line"></span><br><span class="line">   sudo yum makecache fast</span><br><span class="line"></span><br><span class="line">5. 安装docker docker-ce 社区  ee企业版</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">   yum install docker-ce docker-ce-cli containerd.io</span><br><span class="line"></span><br><span class="line">6. 启动docker</span><br><span class="line"></span><br><span class="line">   systemctl start docker</span><br><span class="line"></span><br><span class="line">   sudo service docker start</span><br><span class="line"></span><br><span class="line">7. 测试</span><br><span class="line"></span><br><span class="line">   docker run hello-world</span><br><span class="line"></span><br><span class="line">   docker images(docker镜像   查看这个镜像)</span><br><span class="line"></span><br><span class="line">8. 卸载docker</span><br><span class="line"></span><br><span class="line">   yum remove docker-ce docker-ce-cli containerd.io</span><br><span class="line"></span><br><span class="line">   rm -rf /var/lib/docker </span><br><span class="line"></span><br><span class="line">   /var/lib/docker  docker的默认工作路径</span><br><span class="line"></span><br><span class="line">阿里云镜像加速  容器镜像服务(本人使用华为云)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Docker命令"><a href="#Docker命令" class="headerlink" title="Docker命令"></a>Docker命令</h1><h2 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">  docker version		<span class="comment"># 查看版本信息命令</span></span><br><span class="line"></span><br><span class="line">  docker info			 <span class="comment"># 显示docker的系统信息包括镜像和容器的数量</span></span><br><span class="line"></span><br><span class="line">  docker 命令 --<span class="built_in">help</span> <span class="comment"># 万能命令</span></span><br><span class="line"></span><br><span class="line">  官网帮助文档的地址:https://docs.docker.com/reference/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">+ - 镜像命令</span><br><span class="line"></span><br><span class="line">    docker images 查看本地所有镜像</span><br><span class="line"></span><br><span class="line">    参数(-a 显示所有-f 过滤器 -q 只显示ID ）</span><br><span class="line"></span><br><span class="line">    docker search </span><br><span class="line"></span><br><span class="line">    参数(--filter stars=3000)</span><br><span class="line"></span><br><span class="line">    docker pull 下载最新 镜像名[:tag] 不写tag 默认最新</span><br><span class="line"></span><br><span class="line">    其他命令  -d 后台启动</span><br><span class="line"></span><br><span class="line">    docker top</span><br><span class="line"></span><br><span class="line">    docker ps</span><br><span class="line"></span><br><span class="line">    docker inspect 查看</span><br><span class="line"></span><br><span class="line">    <span class="comment">### 进入当前正在运行的容器</span></span><br><span class="line"></span><br><span class="line">    docker <span class="built_in">exec</span> -it 容器ID (交互模式)</span><br><span class="line"></span><br><span class="line">    docker attach -it 容器ID</span><br><span class="line"></span><br><span class="line">  - 容器命令</span><br><span class="line"></span><br><span class="line">  - 操作命令</span><br><span class="line"></span><br><span class="line">    <span class="comment">### 从容器内拷贝文件到主机上</span></span><br><span class="line"></span><br><span class="line">    docker cp 容器id </span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="DOCKER安装nginx-tomcat-ES-elasticsearch-kibana"><a href="#DOCKER安装nginx-tomcat-ES-elasticsearch-kibana" class="headerlink" title="DOCKER安装nginx tomcat ES(elasticsearch )+kibana"></a>DOCKER安装nginx tomcat ES(elasticsearch )+kibana</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> docker安装tomcat</span><br><span class="line"></span><br><span class="line">docker run -it  --rm tomcat:9.0(官方使用 测试用，用完即删)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">后台启动，停止容器了之后，容器还是可以查到， 加了rm之后用完就删除</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">下载再启动</span></span><br><span class="line"></span><br><span class="line">docker pull tomcat</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">启动运行</span></span><br><span class="line"></span><br><span class="line">docker run -d -p 3355:8080 --name tomcat01 tomcat</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">测试访问没有问题</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">进入容器</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">docker <span class="built_in">exec</span> -it tomcat01 /bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">发现问题1.linux命令少了 2.没有webapps 阿里云镜像的原因默认是最小的镜像，所有不必要的都剔除掉</span></span><br><span class="line"></span><br><span class="line">保证最小可运行的环境</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="待整理"><a href="#待整理" class="headerlink" title="待整理"></a>待整理</h1><pre><code>Docker File
+
+容器数据卷
+
+IDEA整合Docker
+
+Docker网络原理
+
+Docker Compose
+
+Docker Swarm
+
+CI\CD Jenkins
+</code></pre>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/10/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-找出被占用端口的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1032,11 +1166,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Linux,命令</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Typora、Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Linux,命令</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1052,15 +1190,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VSCODE插件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux,运维命令</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vscode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VSCODE插件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1237,5 +1375,5 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
 
 </div>
   </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"left","width":300,"height":600},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
 </html>
